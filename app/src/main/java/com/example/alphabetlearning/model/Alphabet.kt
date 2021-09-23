@@ -1,5 +1,8 @@
 package com.example.alphabetlearning.model
 
-class Alphabet {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import java.util.ArrayList
 
-}
+@Parcelize
+class Alphabet(var alphabetLetters: ArrayList<AlphabetLetter>) : Parcelable

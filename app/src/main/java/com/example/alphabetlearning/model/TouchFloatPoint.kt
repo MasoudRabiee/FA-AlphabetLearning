@@ -1,4 +1,5 @@
 package com.example.alphabetlearning.model
 
-class TouchFloatPoint {
+data class TouchFloatPoint(var x: Float, var y: Float, var isTouched: Boolean = false) {
+
 }
