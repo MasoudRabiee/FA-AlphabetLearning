@@ -10,6 +10,7 @@ import android.view.View
 import com.example.alphabetlearning.data.DataAlphabetLetter
 import com.example.alphabetlearning.model.AlphabetLetter
 import com.example.alphabetlearning.model.SkeletonShape
+import com.example.alphabetlearning.model.TouchFloatPoint
 import kotlin.math.*
 
 class DrawView : View {
@@ -23,13 +24,13 @@ class DrawView : View {
 
     //    var p: Path? = null
 //    var r: Region? = null
-    private lateinit var pointPath: Array<FloatPoint?>
+    private lateinit var pointPath: Array<TouchFloatPoint?>
     private var pFlag = true
     private var holdFlag = false
 
     // roz 4 :
     private lateinit var paths: Array<Path>
-    private lateinit var pathsPoints: List<Array<FloatPoint?>>
+    private lateinit var pathsPoints: List<Array<TouchFloatPoint?>>
 
     // roz 6:
     private lateinit var thresholdList: Array<Int>
@@ -179,8 +180,8 @@ class DrawView : View {
     }
 }
 
-private fun getPoints(path: Path, numOfPoints: Int = 10): Array<FloatPoint?> {
-    val pointArray: Array<FloatPoint?> = arrayOfNulls<FloatPoint>(numOfPoints)
+private fun getPoints(path: Path, numOfPoints: Int = 10): Array<TouchFloatPoint?> {
+    val pointArray: Array<TouchFloatPoint?> = arrayOfNulls<TouchFloatPoint>(numOfPoints)
     val pm = PathMeasure(path, false)
     val length = pm.length / 2
     var distance = 0f
@@ -190,7 +191,7 @@ private fun getPoints(path: Path, numOfPoints: Int = 10): Array<FloatPoint?> {
     while (distance < length && counter < numOfPoints) {
         // get point from the path
         pm.getPosTan(distance, aCoordinates, null)
-        pointArray[counter] = FloatPoint(
+        pointArray[counter] = TouchFloatPoint(
             aCoordinates[0],
             aCoordinates[1]
         )
@@ -200,7 +201,7 @@ private fun getPoints(path: Path, numOfPoints: Int = 10): Array<FloatPoint?> {
     return pointArray
 }
 
-fun checkThreshold(p: Array<FloatPoint?>, pointTouch: PointF): Boolean {
+fun checkThreshold(p: Array<TouchFloatPoint?>, pointTouch: PointF): Boolean {
     val threshold = getDistance(p[0]!!, p[1]!!)
     val concatPath = Path()
     var concatMeasure: PathMeasure
@@ -222,11 +223,11 @@ fun checkThreshold(p: Array<FloatPoint?>, pointTouch: PointF): Boolean {
     return false
 }
 
-fun getDistance(p1: FloatPoint, p2: FloatPoint): Float {
+fun getDistance(p1: TouchFloatPoint, p2: TouchFloatPoint): Float {
     return sqrt((p1.x - p2.x).pow(2) + (p1.y - p2.y).pow(2))
 }
 
-fun isWholeTouch(touchPoints: Array<FloatPoint?>): Boolean {
+fun isWholeTouch(touchPoints: Array<TouchFloatPoint?>): Boolean {
     var result = true
     touchPoints.forEach {
         if (it != null) {
@@ -236,7 +237,6 @@ fun isWholeTouch(touchPoints: Array<FloatPoint?>): Boolean {
     return result
 }
 
-data class FloatPoint(var x: Float, var y: Float, var isTouched: Boolean = false)
 
 
 // roz 3:
@@ -302,15 +302,15 @@ fun drawPaths(canvas: Canvas, paint: Paint, pathList: Array<Path>) {
     }
 }
 
-fun getPointsOfPaths(pathList: Array<Path>, thresholds: Array<Int>): List<Array<FloatPoint?>> {
-    val resultPoints: ArrayList<Array<FloatPoint?>> = arrayListOf()
+fun getPointsOfPaths(pathList: Array<Path>, thresholds: Array<Int>): List<Array<TouchFloatPoint?>> {
+    val resultPoints: ArrayList<Array<TouchFloatPoint?>> = arrayListOf()
     for (i in pathList.indices){
         resultPoints.add(getPoints(pathList[i] , thresholds[i]))
     }
     return resultPoints.toList()
 }
 
-fun isAllPointsTouched(pointsOfPaths: List<Array<FloatPoint?>>): Boolean {
+fun isAllPointsTouched(pointsOfPaths: List<Array<TouchFloatPoint?>>): Boolean {
     var result = true
     var subResult: Boolean
     pointsOfPaths.forEach {
@@ -320,7 +320,7 @@ fun isAllPointsTouched(pointsOfPaths: List<Array<FloatPoint?>>): Boolean {
     return result
 }
 
-fun isNearOfPoint(pointsOfPaths: List<Array<FloatPoint?>>, touchPoint: PointF): Boolean {
+fun isNearOfPoint(pointsOfPaths: List<Array<TouchFloatPoint?>>, touchPoint: PointF): Boolean {
     var result: Boolean
     pointsOfPaths.forEach {
         result = checkThreshold(it, touchPoint)
