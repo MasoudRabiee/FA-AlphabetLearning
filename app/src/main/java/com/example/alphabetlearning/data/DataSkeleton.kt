@@ -94,6 +94,7 @@ object DataSkeleton {
 
     // _________________________________________________________________________________________
     // 6. jim :
+
     private val Jim_Middle_Sm = MiddlePointTools(
         arrayListOf(PointF(850f, 500f), PointF(925f, 600f), PointF(650f, 600f)),
         arrayListOf(CurveTools(50), CurveTools(-25), defaultCurveTools, defaultCurveTools)
@@ -113,24 +114,68 @@ object DataSkeleton {
     val JIM_Skeleton_Cap = SkeletonShape(PointF(275f, 500f), PointF(475f, 600f), Jim_Middle_Cap, Jim_Addi_Cap, defaultCurveTools, 50)
 
     // _________________________________________________________________________________________
-    // Che :
+    // 7. Che : derived from Jim
 
-    // he:
+    private val Che_Addi_Sm = arrayListOf(
+        SkeletonShape(PointF(775f, 700f), PointF(785f, 700f), defaultCurveTools, 2),
+        SkeletonShape(PointF(850f, 700f), PointF(860f, 700f), defaultCurveTools, 2),
+        SkeletonShape(PointF(815f, 750f), PointF(825f, 750f), defaultCurveTools, 2)
+    )
+    private val Che_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(375f, 800f), PointF(385f, 800f), defaultCurveTools, 2),
+        SkeletonShape(PointF(450f, 800f), PointF(460f, 800f), defaultCurveTools, 2),
+        SkeletonShape(PointF(415f, 850f), PointF(425f, 850f), defaultCurveTools, 2)
+    )
 
-    // khe :
+    val Che_Skeleton_Sm = SkeletonShape(PointF(750f, 500f), PointF(925f, 600f), Jim_Middle_Sm, Che_Addi_Sm, defaultCurveTools, 20)
+    val Che_Skeleton_Cap = SkeletonShape(PointF(275f, 500f), PointF(475f, 600f), Jim_Middle_Cap, Che_Addi_Cap, defaultCurveTools, 50)
 
-    // dal :
-//    private val SE_Addi_Sm = arrayListOf(
-//        SkeletonShape(PointF(895f,450f) , PointF(885f,450f) , 2) ,
-//        SkeletonShape(PointF(815f,450f) , PointF(825f,450f) , 2) ,
-//        SkeletonShape(PointF(850f,400f) , PointF(860f,400f) , 2)
-//    )
-//
-//    private val SE_Addi_Cap = arrayListOf<SkeletonShape>(
-//        SkeletonShape(PointF(440f , 450f) , PointF(450f , 450f), 2) ,
-//        SkeletonShape(PointF(360f , 450f) , PointF(370f , 450f), 2) ,
-//        SkeletonShape(PointF(400f , 400f) , PointF(410f , 400f), 2)
-//    )
-//    val SE_Skeleton_Sm = SkeletonShape(PointF(900f , 500f) , PointF(800f ,550f) , BE_Middle_Sm , SE_Addi_Sm)
-//    val SE_Skeleton_Cap = SkeletonShape(PointF(550f , 500f) , PointF(250f,500f) , BE_Middle_Cap , SE_Addi_Cap)
+    // _________________________________________________________________________________________
+    // 8. he: derived from Jim
+
+    val HE_Skeleton_Sm = SkeletonShape(PointF(750f, 500f), PointF(925f, 600f), Jim_Middle_Sm, defaultCurveTools, 20)
+    val HE_Skeleton_Cap = SkeletonShape(PointF(275f, 500f), PointF(475f, 600f), Jim_Middle_Cap, defaultCurveTools, 50)
+
+    // _________________________________________________________________________________________
+    // 9. khe : derived form Jim
+
+    private val Khe_Addi_Sm = arrayListOf(
+        SkeletonShape(PointF(800f, 350f), PointF(810f, 350f), defaultCurveTools, 2)
+    )
+    private val Khe_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(350f, 350f), PointF(360f, 350f), defaultCurveTools, 2)
+    )
+
+    val KHE_Skeleton_Sm = SkeletonShape(PointF(750f, 500f), PointF(925f, 600f), Jim_Middle_Sm, Khe_Addi_Sm, defaultCurveTools, 20)
+    val KHE_Skeleton_Cap = SkeletonShape(PointF(275f, 500f), PointF(475f, 600f), Jim_Middle_Cap, Khe_Addi_Cap, defaultCurveTools, 50)
+
+    // _________________________________________________________________________________________
+    // 10. dal :
+
+    private val DAL_Middle_Sm = MiddlePointTools(
+        arrayListOf(PointF(700f, 850f)),
+        arrayListOf(CurveTools(550), CurveTools(-550))
+    )
+    private val DAL_Middle_Cap = MiddlePointTools(
+        arrayListOf(PointF(250f, 850f)),
+        arrayListOf(CurveTools(550), CurveTools(-550))
+    )
+
+    val DAL_Skeleton_Sm = SkeletonShape(PointF(700f, 500f), PointF(700f, 500f), DAL_Middle_Sm, defaultCurveTools, 95)
+    val DAL_Skeleton_Cap = SkeletonShape(PointF(250f, 500f), PointF(250f, 500f), DAL_Middle_Cap, defaultCurveTools, 95)
+
+    // _________________________________________________________________________________________
+    // 11. zal : derived from dal
+
+    private val Zal_Addi_Sm = arrayListOf(
+        SkeletonShape(PointF(825f, 375f), PointF(835f, 375f), defaultCurveTools, 2)
+    )
+    private val Zal_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(375f, 375f), PointF(385f, 375f), defaultCurveTools, 2)
+    )
+
+    val ZAL_Skeleton_Sm = SkeletonShape(PointF(700f, 500f), PointF(700f, 500f), DAL_Middle_Sm, Zal_Addi_Sm, defaultCurveTools, 95)
+    val ZAL_Skeleton_Cap = SkeletonShape(PointF(250f, 500f), PointF(250f, 500f), DAL_Middle_Cap, Zal_Addi_Cap, defaultCurveTools, 95)
+
+    // _________________________________________________________________________________________
 }

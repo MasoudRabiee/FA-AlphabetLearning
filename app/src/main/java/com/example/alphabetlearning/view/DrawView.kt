@@ -75,7 +75,7 @@ class DrawView : View {
         drawPath = Path()
 
         //roz 4:
-        val pathCount = DataAlphabetLetter.JIM.totalPath()
+        val pathCount = DataAlphabetLetter.ZAL.totalPath()
         paths = Array<Path>(pathCount) {
             Path()
         }
@@ -102,7 +102,7 @@ class DrawView : View {
         // bra dynamic :
 //        createPath(p!!, DataSkeleton.ALEF_Skeleton_Sm)
         // bra ye alphabet :
-        createPaths(paths, DataAlphabetLetter.JIM)
+        createPaths(paths, DataAlphabetLetter.ZAL)
 //        canvas.drawPath(p!!, paint)
 //        p!!.close()
         drawPaths(canvas, paint, paths)
@@ -111,7 +111,7 @@ class DrawView : View {
 //            pointPath = getPoints(p!!)
 //            pFlag = false
             // bra roz 4 :
-            setThresholds(thresholdList , DataAlphabetLetter.JIM)
+            setThresholds(thresholdList , DataAlphabetLetter.ZAL)
             pathsPoints = getPointsOfPaths(paths , thresholdList)
             pFlag = false
 
@@ -186,7 +186,12 @@ private fun getPoints(path: Path, numOfPoints: Int = 10): Array<TouchFloatPoint?
     val pm = PathMeasure(path, false)
     val length = pm.length / 2
     var distance = 0f
-    val speed = length / numOfPoints
+    val speed : Float = if (numOfPoints>2){
+        length * 2 / numOfPoints
+    }
+    else{
+        length / numOfPoints
+    }
     var counter = 0
     val aCoordinates = FloatArray(2)
     while (distance < length && counter < numOfPoints) {
