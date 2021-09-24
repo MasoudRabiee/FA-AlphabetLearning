@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.example.alphabetlearning.data.DataAlphabetLetter
 import com.example.alphabetlearning.model.AlphabetLetter
+import com.example.alphabetlearning.model.CurveTools
 import com.example.alphabetlearning.model.SkeletonShape
 import com.example.alphabetlearning.model.TouchFloatPoint
 import kotlin.math.*
@@ -74,7 +75,7 @@ class DrawView : View {
         drawPath = Path()
 
         //roz 4:
-        val pathCount = DataAlphabetLetter.BE.totalPath()
+        val pathCount = DataAlphabetLetter.JIM.totalPath()
         paths = Array<Path>(pathCount) {
             Path()
         }
@@ -101,7 +102,7 @@ class DrawView : View {
         // bra dynamic :
 //        createPath(p!!, DataSkeleton.ALEF_Skeleton_Sm)
         // bra ye alphabet :
-        createPaths(paths, DataAlphabetLetter.BE)
+        createPaths(paths, DataAlphabetLetter.JIM)
 //        canvas.drawPath(p!!, paint)
 //        p!!.close()
         drawPaths(canvas, paint, paths)
@@ -110,7 +111,7 @@ class DrawView : View {
 //            pointPath = getPoints(p!!)
 //            pFlag = false
             // bra roz 4 :
-            setThresholds(thresholdList , DataAlphabetLetter.BE)
+            setThresholds(thresholdList , DataAlphabetLetter.JIM)
             pathsPoints = getPointsOfPaths(paths , thresholdList)
             pFlag = false
 
@@ -202,6 +203,7 @@ private fun getPoints(path: Path, numOfPoints: Int = 10): Array<TouchFloatPoint?
 }
 
 fun checkThreshold(p: Array<TouchFloatPoint?>, pointTouch: PointF): Boolean {
+    var result = false
     val threshold = getDistance(p[0]!!, p[1]!!)
     val concatPath = Path()
     var concatMeasure: PathMeasure
@@ -214,13 +216,13 @@ fun checkThreshold(p: Array<TouchFloatPoint?>, pointTouch: PointF): Boolean {
                 it.isTouched = true
                 concatPath.reset()
                 concatPath.close()
-                return true
+                result = true
             }
             concatPath.reset()
             concatPath.close()
         }
     }
-    return false
+    return result
 }
 
 fun getDistance(p1: TouchFloatPoint, p2: TouchFloatPoint): Float {
@@ -243,6 +245,7 @@ fun isWholeTouch(touchPoints: Array<TouchFloatPoint?>): Boolean {
 fun createPath(path: Path, skeletonKind: SkeletonShape) {
     path.reset()
     path.moveTo(skeletonKind.startPointF.x, skeletonKind.startPointF.y)
+    val lastArrow:CurveTools
     var index = 0
     var firstPoint = skeletonKind.startPointF
     var secondPoint : PointF
@@ -254,13 +257,14 @@ fun createPath(path: Path, skeletonKind: SkeletonShape) {
             firstPoint = it
             index++
         }
-        val lastArrow = skeletonKind.middleShape.curveMiddle!![index]
-        drawCurvedArrow(firstPoint , skeletonKind.endPointF , path , lastArrow.curveRadius , lastArrow.effectPercent)
+        lastArrow = skeletonKind.middleShape.curveMiddle!![index]
     }
     else {
-        val lastArrow = skeletonKind.tools
-        drawCurvedArrow(firstPoint , skeletonKind.endPointF , path , lastArrow.curveRadius , lastArrow.effectPercent)
+        lastArrow = skeletonKind.tools
     }
+//    path.lineTo(skeletonKind.endPointF.x , skeletonKind.endPointF.y)
+    drawCurvedArrow(firstPoint , skeletonKind.endPointF , path , lastArrow.curveRadius , lastArrow.effectPercent)
+
 
 //    skeletonKind.middlePointsF.forEach {
 //        path.lineTo(it.x, it.y)
@@ -359,15 +363,20 @@ fun drawCurvedArrow(firstPoint: PointF, lastPoint: PointF, path: Path, curveRadi
 //    paint.style = Paint.Style.STROKE
 //    paint.strokeWidth = lineWidth
 //    paint.color = color
-    val midX = firstPoint.x + (lastPoint.x - firstPoint.x) * anglePercent / 100
-    val midY = firstPoint.y + (lastPoint.y - firstPoint.y) * anglePercent / 100
-    val xDiff = (midX - firstPoint.x)
-    val yDiff = (midY - firstPoint.y)
-    val angle = atan2(yDiff.toDouble(), xDiff.toDouble()) * (180 / Math.PI) - 90
-    val angleRadians = Math.toRadians(angle)
-    val pointX = (midX + curveRadius * cos(angleRadians)).toFloat()
-    val pointY = (midY + curveRadius * sin(angleRadians)).toFloat()
+    if (curveRadius == 0){
+        path.lineTo(lastPoint.x,lastPoint.y)
+    }
+    else{
+        val midX = firstPoint.x + (lastPoint.x - firstPoint.x) * anglePercent / 100
+        val midY = firstPoint.y + (lastPoint.y - firstPoint.y) * anglePercent / 100
+        val xDiff = (midX - firstPoint.x)
+        val yDiff = (midY - firstPoint.y)
+        val angle = atan2(yDiff.toDouble(), xDiff.toDouble()) * (180 / Math.PI) - 90
+        val angleRadians = Math.toRadians(angle)
+        val pointX = (midX + curveRadius * cos(angleRadians)).toFloat()
+        val pointY = (midY + curveRadius * sin(angleRadians)).toFloat()
 //    path.moveTo(firstPoint.x, firstPoint.y)
-    path.cubicTo(firstPoint.x, firstPoint.y, pointX, pointY, lastPoint.x, lastPoint.y)
+        path.cubicTo(firstPoint.x, firstPoint.y, pointX, pointY, lastPoint.x, lastPoint.y)
 //    canvas.drawPath(path, paint)
+    }
 }
