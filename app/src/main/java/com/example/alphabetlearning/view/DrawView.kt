@@ -75,7 +75,7 @@ class DrawView : View {
         drawPath = Path()
 
         //roz 4:
-        val pathCount = DataAlphabetLetter.ZAL.totalPath()
+        val pathCount = DataAlphabetLetter.SIN.totalPath()
         paths = Array<Path>(pathCount) {
             Path()
         }
@@ -102,7 +102,7 @@ class DrawView : View {
         // bra dynamic :
 //        createPath(p!!, DataSkeleton.ALEF_Skeleton_Sm)
         // bra ye alphabet :
-        createPaths(paths, DataAlphabetLetter.ZAL)
+        createPaths(paths, DataAlphabetLetter.SIN)
 //        canvas.drawPath(p!!, paint)
 //        p!!.close()
         drawPaths(canvas, paint, paths)
@@ -111,7 +111,7 @@ class DrawView : View {
 //            pointPath = getPoints(p!!)
 //            pFlag = false
             // bra roz 4 :
-            setThresholds(thresholdList , DataAlphabetLetter.ZAL)
+            setThresholds(thresholdList , DataAlphabetLetter.SIN)
             pathsPoints = getPointsOfPaths(paths , thresholdList)
             pFlag = false
 
@@ -140,8 +140,11 @@ class DrawView : View {
         } else {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    if (isNearOfPoint(pathsPoints, point))
+                    if (isNearOfPoint(pathsPoints, point)){
                         drawPath.moveTo(point.x, point.y)
+                        // maybe make bug
+                        drawPath.lineTo(point.x, point.y)
+                    }
                 }
                 MotionEvent.ACTION_MOVE -> {
                     if (isNearOfPoint(pathsPoints, point)) {

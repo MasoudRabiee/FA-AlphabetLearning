@@ -178,4 +178,61 @@ object DataSkeleton {
     val ZAL_Skeleton_Cap = SkeletonShape(PointF(250f, 500f), PointF(250f, 500f), DAL_Middle_Cap, Zal_Addi_Cap, defaultCurveTools, 95)
 
     // _________________________________________________________________________________________
+    // 12. re :
+
+    val RE_Skeleton_Sm = SkeletonShape(PointF(850f, 550f), PointF(625f, 850f), CurveTools(150), 150)
+    val RE_Skeleton_Cap = SkeletonShape(PointF(350f, 550f), PointF(125f, 850f), CurveTools(150), 150)
+
+    // _________________________________________________________________________________________
+    // 13. ze : derived from re
+
+    private val Ze_Middle = MiddlePointTools(null, null)
+    private val Ze_Addi_Sm = arrayListOf(
+        SkeletonShape(PointF(845f, 400f), PointF(855f, 400f), defaultCurveTools, 2)
+    )
+    private val Ze_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(345f, 400f), PointF(355f, 400f), defaultCurveTools, 2)
+    )
+
+    val ZE_Skeleton_Sm = SkeletonShape(PointF(850f, 550f), PointF(625f, 850f), Ze_Middle, Ze_Addi_Sm, CurveTools(150), 150)
+    val ZE_Skeleton_Cap = SkeletonShape(PointF(350f, 550f), PointF(125f, 850f), Ze_Middle, Ze_Addi_Cap, CurveTools(150), 150)
+
+    // _________________________________________________________________________________________
+    // 14. zhe : derived from re and ze
+
+    private val Zhe_Addi_Sm = arrayListOf(
+        SkeletonShape(PointF(800f, 400f), PointF(810f, 400f), defaultCurveTools, 2),
+        SkeletonShape(PointF(890f, 400f), PointF(900f, 400f), defaultCurveTools, 2),
+        SkeletonShape(PointF(845f, 325f), PointF(855f, 325f), defaultCurveTools, 2)
+
+    )
+    private val Zhe_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(300f, 400f), PointF(310f, 400f), defaultCurveTools, 2),
+        SkeletonShape(PointF(390f, 400f), PointF(400f, 400f), defaultCurveTools, 2),
+        SkeletonShape(PointF(345f, 325f), PointF(355f, 325f), defaultCurveTools, 2)
+    )
+
+    val ZHE_Skeleton_Sm = SkeletonShape(PointF(850f, 550f), PointF(625f, 850f), Ze_Middle, Zhe_Addi_Sm, CurveTools(150), 150)
+    val ZHE_Skeleton_Cap = SkeletonShape(PointF(350f, 550f), PointF(125f, 850f), Ze_Middle, Zhe_Addi_Cap, CurveTools(150), 150)
+
+    // _________________________________________________________________________________________
+    // 15. sin :
+
+    private val curve = CurveTools(50, 80)
+    private val curveRevs = CurveTools(50, 20)
+    private val capCurve = CurveTools(150, 75)
+    private val capCurveRevs = CurveTools(150, 25)
+    private val Sin_Middle_Sm = MiddlePointTools(
+        arrayListOf(PointF(900f, 750f), PointF(850f, 650f), PointF(800f, 750f), PointF(750f, 650f), PointF(700f, 750f) , PointF(675f, 750f) , PointF(700f,750f) , PointF(750f, 650f), PointF(700f , 750f) , PointF(675f, 750f) ,PointF(700f,750f)  ),
+        arrayListOf(curve, curveRevs, curve, curveRevs, curve, defaultCurveTools , defaultCurveTools , CurveTools(-50 , 20) , curve , defaultCurveTools , defaultCurveTools , CurveTools(-50 , 20))
+    )
+    private val Sin_Middle_Cap = MiddlePointTools(
+        arrayListOf(PointF(550f, 750f), PointF(500f, 650f), PointF(450f, 750f), PointF(400f, 650f), PointF(250f, 900f), PointF(100f, 650f), PointF(250f, 900f), PointF(400f, 650f), PointF(250f, 900f)),
+        arrayListOf(curve, curveRevs, curve, curveRevs, capCurve, capCurveRevs, CurveTools(-150, 75), CurveTools(-150, 25), capCurve, capCurveRevs)
+    )
+
+    val SIN_Skeleton_Sm = SkeletonShape(PointF(950f, 650f), PointF(750f, 650f), Sin_Middle_Sm, defaultCurveTools, 120)
+    val SIN_Skeleton_Cap = SkeletonShape(PointF(600f, 650f), PointF(100f, 650f), Sin_Middle_Cap, defaultCurveTools, 150)
+
+    // _________________________________________________________________________________________
 }

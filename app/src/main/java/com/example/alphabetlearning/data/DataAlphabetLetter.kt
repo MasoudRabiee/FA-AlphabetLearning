@@ -15,6 +15,10 @@ object DataAlphabetLetter : Serializable {
     val KHE = AlphabetLetter("خ", DataSkeleton.KHE_Skeleton_Cap, DataSkeleton.KHE_Skeleton_Sm, "khe")
     val DAL = AlphabetLetter("د", DataSkeleton.DAL_Skeleton_Cap, DataSkeleton.DAL_Skeleton_Sm, "dal")
     val ZAL = AlphabetLetter("ذ", DataSkeleton.ZAL_Skeleton_Cap, DataSkeleton.ZAL_Skeleton_Sm, "zal")
+    val RE = AlphabetLetter("ر", DataSkeleton.RE_Skeleton_Cap, DataSkeleton.RE_Skeleton_Sm, "re")
+    val ZE = AlphabetLetter("ز", DataSkeleton.ZE_Skeleton_Cap, DataSkeleton.ZE_Skeleton_Sm, "ze")
+    val ZHE = AlphabetLetter("ژ", DataSkeleton.ZHE_Skeleton_Cap, DataSkeleton.ZHE_Skeleton_Sm, "zhe")
+    val SIN = AlphabetLetter("س", DataSkeleton.SIN_Skeleton_Cap, DataSkeleton.SIN_Skeleton_Sm, "sin")
 
 
 }
