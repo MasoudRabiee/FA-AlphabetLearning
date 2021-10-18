@@ -19,6 +19,17 @@ object DataAlphabetLetter : Serializable {
     val ZE = AlphabetLetter("ز", DataSkeleton.ZE_Skeleton_Cap, DataSkeleton.ZE_Skeleton_Sm, "ze")
     val ZHE = AlphabetLetter("ژ", DataSkeleton.ZHE_Skeleton_Cap, DataSkeleton.ZHE_Skeleton_Sm, "zhe")
     val SIN = AlphabetLetter("س", DataSkeleton.SIN_Skeleton_Cap, DataSkeleton.SIN_Skeleton_Sm, "sin")
+    val SHIN = AlphabetLetter("ش", DataSkeleton.SHIN_Skeleton_Cap, DataSkeleton.SHIN_Skeleton_Sm, "shin")
+    val SAD = AlphabetLetter("ص", DataSkeleton.SAD_Skeleton_Cap, DataSkeleton.SAD_Skeleton_Sm, "sad")
+    val ZAD = AlphabetLetter("ض", DataSkeleton.ZAD_Skeleton_Cap, DataSkeleton.ZAD_Skeleton_Sm, "zad")
+    val TA = AlphabetLetter("ط", DataSkeleton.TA_Skeleton_Cap, DataSkeleton.TA_Skeleton_Sm, "ta")
+    val ZA = AlphabetLetter("ظ", DataSkeleton.ZA_Skeleton_Cap, DataSkeleton.ZA_Skeleton_Sm, "za")
+    val EYN = AlphabetLetter("ع", DataSkeleton.EYN_Skeleton_Cap, DataSkeleton.EYN_Skeleton_Sm, "eyn")
+    val GHYN = AlphabetLetter("غ", DataSkeleton.GHYN_Skeleton_Cap, DataSkeleton.GHYN_Skeleton_Sm, "ghyn")
+    val FE = AlphabetLetter("ف", DataSkeleton.FE_Skeleton_Cap, DataSkeleton.FE_Skeleton_Sm, "fe")
+    val QAF = AlphabetLetter("ق", DataSkeleton.QAF_Skeleton_Cap, DataSkeleton.QAF_Skeleton_Sm, "qaf")
+    val KAF = AlphabetLetter("ک", DataSkeleton.KAF_Skeleton_Cap, DataSkeleton.KAF_Skeleton_Sm, "kaf")
+    val GAF = AlphabetLetter("گ", DataSkeleton.GAF_Skeleton_Cap, DataSkeleton.GAF_Skeleton_Sm, "gaf")
 
 
 }
