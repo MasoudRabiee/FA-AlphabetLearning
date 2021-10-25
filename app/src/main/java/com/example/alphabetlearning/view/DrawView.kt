@@ -75,7 +75,7 @@ class DrawView : View {
         drawPath = Path()
 
         //roz 4:
-        val pathCount = DataAlphabetLetter.GAF.totalPath()
+        val pathCount = DataAlphabetLetter.YE.totalPath()
         paths = Array<Path>(pathCount) {
             Path()
         }
@@ -102,7 +102,7 @@ class DrawView : View {
         // bra dynamic :
 //        createPath(p!!, DataSkeleton.ALEF_Skeleton_Sm)
         // bra ye alphabet :
-        createPaths(paths, DataAlphabetLetter.GAF)
+        createPaths(paths, DataAlphabetLetter.YE)
 //        canvas.drawPath(p!!, paint)
 //        p!!.close()
         drawPaths(canvas, paint, paths)
@@ -111,7 +111,7 @@ class DrawView : View {
 //            pointPath = getPoints(p!!)
 //            pFlag = false
             // bra roz 4 :
-            setThresholds(thresholdList , DataAlphabetLetter.GAF)
+            setThresholds(thresholdList , DataAlphabetLetter.YE)
             pathsPoints = getPointsOfPaths(paths , thresholdList)
             pFlag = false
 
@@ -363,7 +363,7 @@ fun setThresholds(thresholds: Array<Int>, alphaLtr: AlphabetLetter) {
     }
 }
 
-// bra keshidan monhani :
+// bra keshidan monhani : (dar jahat aqrabe saat)
 // curveRadius age manfi bashe reverse mishe **
 
 fun drawCurvedArrow(firstPoint: PointF, lastPoint: PointF, path: Path, curveRadius: Int, anglePercent:Int) {

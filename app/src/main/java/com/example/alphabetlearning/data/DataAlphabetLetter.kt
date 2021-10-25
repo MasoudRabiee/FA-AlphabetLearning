@@ -30,6 +30,12 @@ object DataAlphabetLetter : Serializable {
     val QAF = AlphabetLetter("ق", DataSkeleton.QAF_Skeleton_Cap, DataSkeleton.QAF_Skeleton_Sm, "qaf")
     val KAF = AlphabetLetter("ک", DataSkeleton.KAF_Skeleton_Cap, DataSkeleton.KAF_Skeleton_Sm, "kaf")
     val GAF = AlphabetLetter("گ", DataSkeleton.GAF_Skeleton_Cap, DataSkeleton.GAF_Skeleton_Sm, "gaf")
+    val LAM = AlphabetLetter("ل", DataSkeleton.LAM_Skeleton_Cap, DataSkeleton.LAM_Skeleton_Sm, "lam")
+    val MIM = AlphabetLetter("م", DataSkeleton.MIM_Skeleton_Cap, DataSkeleton.MIM_Skeleton_Sm, "mim")
+    val NOON = AlphabetLetter("ن", DataSkeleton.NOON_Skeleton_Cap, DataSkeleton.NOON_Skeleton_Sm, "noon")
+    val VAV = AlphabetLetter("و", DataSkeleton.VAV_Skeleton_Cap, DataSkeleton.VAV_Skeleton_Sm, "vav")
+    val HEdo = AlphabetLetter("ه", DataSkeleton.HEdo_Skeleton_Cap, DataSkeleton.HEdo_Skeleton_Sm, "hedo")
+    val YE = AlphabetLetter("ی", DataSkeleton.YE_Skeleton_Cap, DataSkeleton.YE_Skeleton_Sm, "ye")
 
 
 }
