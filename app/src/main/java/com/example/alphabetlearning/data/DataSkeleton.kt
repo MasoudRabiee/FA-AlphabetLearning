@@ -648,8 +648,8 @@ object DataSkeleton {
         SkeletonShape(PointF(850f, 900f), PointF(865f, 900f), defaultCurveTools, 2)
     )
     private val Ye_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(400f, 800f) , PointF(525f , 900f) , PointF(400f, 1100f),PointF(200f, 750f),PointF(400f, 1100f),PointF(525f , 900f),PointF(400f, 1100f)),
-        arrayListOf(CurveTools(-75), CurveTools(-50 , 25) , CurveTools(100 , 40), CurveTools(400) , CurveTools(-400) ,CurveTools(-100 , 60),CurveTools(100 , 40), CurveTools(400))
+        arrayListOf(PointF(400f, 800f), PointF(525f, 900f), PointF(400f, 1100f), PointF(200f, 750f), PointF(400f, 1100f), PointF(525f, 900f), PointF(400f, 1100f)),
+        arrayListOf(CurveTools(-75), CurveTools(-50, 25), CurveTools(100, 40), CurveTools(400), CurveTools(-400), CurveTools(-100, 60), CurveTools(100, 40), CurveTools(400))
     )
 
     val YE_Skeleton_Sm = SkeletonShape(PointF(900f, 650f), PointF(750f, 750f), Noon_Middle_Sm, Ye_Addi_Sm, defaultCurveTools, 50)
