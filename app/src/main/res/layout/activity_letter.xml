@@ -4,6 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     tools:context=".view.LetterActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_letter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
