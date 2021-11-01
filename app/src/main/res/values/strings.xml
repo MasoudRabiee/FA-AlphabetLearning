@@ -2,4 +2,7 @@
     <string name="app_name">AlphabetLearning</string>
     <string name="rasm_horof">رسم حروف</string>
     <string name="alphabetLetter">AlphabetLetter</string>
+    <string name="afarin">آفرین ، موفق شدی </string>
+    <string name="back">بازگشت</string>
+    <string name="retry">دوباره</string>
 </resources>

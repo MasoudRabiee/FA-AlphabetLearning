@@ -1,5 +1,6 @@
 package com.example.alphabetlearning.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
@@ -42,6 +43,5 @@ class DrawingActivity : AppCompatActivity() {
         setConstraint.applyTo(binding.constraintDraw)
         setContentView(binding.root)
 
-        
     }
 }

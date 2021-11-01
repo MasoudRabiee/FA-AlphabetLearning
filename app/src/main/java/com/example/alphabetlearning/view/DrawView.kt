@@ -1,13 +1,19 @@
 package com.example.alphabetlearning.view
 
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.fragment.app.FragmentManager
+import com.example.alphabetlearning.R
 import com.example.alphabetlearning.data.DataAlphabetLetter
+import com.example.alphabetlearning.fragment.SuccessFragment
 import com.example.alphabetlearning.model.AlphabetLetter
 import com.example.alphabetlearning.model.CurveTools
 import com.example.alphabetlearning.model.SkeletonShape
@@ -38,6 +44,10 @@ class DrawView : View {
 
     //data
     private var dataDraw : AlphabetLetter? = null
+
+    //alertDialog
+    private lateinit var alertShow : AlertDialog
+
 
     constructor(context: Context) : super(context) {
         init()
@@ -98,6 +108,16 @@ class DrawView : View {
         thresholdList = Array(pathCount) {
             0
         }
+
+        val builder = AlertDialog.Builder(context)
+        builder.setView(inflate(context ,R.layout.fragment_success , null))
+            .setNegativeButton(
+                R.string.back,
+                DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+        alertShow = builder.create()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -152,6 +172,7 @@ class DrawView : View {
         point.y = event.y
         Log.d(ContentValues.TAG, "point: $point")
         if (isAllPointsTouched(pathsPoints)) {
+            alertShow.show()
             Log.d(ContentValues.TAG, "Mission is complete ez pz")
         } else {
             when (event.action) {
