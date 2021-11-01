@@ -10,10 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.fragment.app.FragmentManager
 import com.example.alphabetlearning.R
-import com.example.alphabetlearning.data.DataAlphabetLetter
-import com.example.alphabetlearning.fragment.SuccessFragment
 import com.example.alphabetlearning.model.AlphabetLetter
 import com.example.alphabetlearning.model.CurveTools
 import com.example.alphabetlearning.model.SkeletonShape
