@@ -36,7 +36,15 @@ class DrawView : View {
     // roz 6:
     private lateinit var thresholdList: Array<Int>
 
+    //data
+    private var dataDraw : AlphabetLetter? = null
+
     constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context , datadraw:AlphabetLetter):super(context){
+        this.dataDraw = datadraw
         init()
     }
 
@@ -49,6 +57,14 @@ class DrawView : View {
         attr,
         defStyle
     ) {
+        init()
+    }
+
+    fun setDataDrawer(data: AlphabetLetter){
+        dataDraw = data
+    }
+
+    fun reinitialization(){
         init()
     }
 
@@ -75,7 +91,7 @@ class DrawView : View {
         drawPath = Path()
 
         //roz 4:
-        val pathCount = DataAlphabetLetter.YE.totalPath()
+        val pathCount = dataDraw!!.totalPath()
         paths = Array<Path>(pathCount) {
             Path()
         }
@@ -102,7 +118,7 @@ class DrawView : View {
         // bra dynamic :
 //        createPath(p!!, DataSkeleton.ALEF_Skeleton_Sm)
         // bra ye alphabet :
-        createPaths(paths, DataAlphabetLetter.YE)
+        createPaths(paths, dataDraw!!)
 //        canvas.drawPath(p!!, paint)
 //        p!!.close()
         drawPaths(canvas, paint, paths)
@@ -111,7 +127,7 @@ class DrawView : View {
 //            pointPath = getPoints(p!!)
 //            pFlag = false
             // bra roz 4 :
-            setThresholds(thresholdList , DataAlphabetLetter.YE)
+            setThresholds(thresholdList , dataDraw!!)
             pathsPoints = getPointsOfPaths(paths , thresholdList)
             pFlag = false
 

@@ -4,6 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DrawingActivity">
+    tools:context=".view.DrawingActivity"
+    android:id="@+id/constraint_draw">
+
+<!--    <com.example.alphabetlearning.view.DrawView-->
+<!--        android:id="@+id/drawview1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:background="@drawable/homepic"/>-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

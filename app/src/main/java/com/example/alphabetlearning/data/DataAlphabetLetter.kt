@@ -3,7 +3,7 @@ package com.example.alphabetlearning.data
 import com.example.alphabetlearning.model.AlphabetLetter
 import java.io.Serializable
 
-object DataAlphabetLetter : Serializable {
+object DataAlphabetLetter {
     val ALEF = AlphabetLetter("آ", DataSkeleton.ALEF_Skeleton_Cap, DataSkeleton.ALEF_Skeleton_Sm, "alef")
     val BE = AlphabetLetter("ب", DataSkeleton.BE_Skeleton_Cap, DataSkeleton.BE_Skeleton_Sm, "be")
     val PE = AlphabetLetter("پ", DataSkeleton.PE_Skeleton_Cap, DataSkeleton.PE_Skeleton_Sm, "pe")
@@ -36,6 +36,5 @@ object DataAlphabetLetter : Serializable {
     val VAV = AlphabetLetter("و", DataSkeleton.VAV_Skeleton_Cap, DataSkeleton.VAV_Skeleton_Sm, "vav")
     val HEdo = AlphabetLetter("ه", DataSkeleton.HEdo_Skeleton_Cap, DataSkeleton.HEdo_Skeleton_Sm, "hedo")
     val YE = AlphabetLetter("ی", DataSkeleton.YE_Skeleton_Cap, DataSkeleton.YE_Skeleton_Sm, "ye")
-
 
 }

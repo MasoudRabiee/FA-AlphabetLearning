@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.model.AlphabetLetter
+import com.example.alphabetlearning.view.DrawView
 import com.example.alphabetlearning.view.DrawingActivity
 
 class LetterRecyclerAdapter(
