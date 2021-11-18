@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.model.AlphabetLetter
 import com.example.alphabetlearning.model.CurveTools
@@ -48,6 +49,7 @@ class DrawView : View {
     // context
     private lateinit var _context: Context
     private var clearCanvasFlag = false
+    private lateinit var toast: Toast
 
 
     constructor(context: Context) : super(context) {
@@ -121,8 +123,17 @@ class DrawView : View {
                 DialogInterface.OnClickListener { dialog, id ->
                     dialog.cancel()
                 })
+            .setPositiveButton(
+                R.string.retry,
+                DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                    clearDraw()
+                }
+            )
 
         alertShow = builder.create()
+
+        toast = Toast.makeText(_context , "دوباره تلاش کن" , Toast.LENGTH_SHORT)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -204,6 +215,7 @@ class DrawView : View {
                     } else {
                         drawPath.reset()
                         holdFlag = false
+                        toast.show()
                         clearDraw()
                     }
                 }
