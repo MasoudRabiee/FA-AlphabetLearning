@@ -40,22 +40,29 @@ class DrawView : View {
     private lateinit var thresholdList: Array<Int>
 
     //data
-    private var dataDraw : AlphabetLetter? = null
+    private var dataDraw: AlphabetLetter? = null
 
     //alertDialog
-    private lateinit var alertShow : AlertDialog
+    private lateinit var alertShow: AlertDialog
+
+    // context
+    private lateinit var _context: Context
+    private var clearCanvasFlag = false
 
 
     constructor(context: Context) : super(context) {
+        _context = context
         init()
     }
 
-    constructor(context: Context , datadraw:AlphabetLetter):super(context){
+    constructor(context: Context, datadraw: AlphabetLetter) : super(context) {
+        _context = context
         this.dataDraw = datadraw
         init()
     }
 
     constructor(context: Context, attr: AttributeSet) : super(context, attr) {
+        _context = context
         init()
     }
 
@@ -64,14 +71,15 @@ class DrawView : View {
         attr,
         defStyle
     ) {
+        _context = context
         init()
     }
 
-    fun setDataDrawer(data: AlphabetLetter){
+    fun setDataDrawer(data: AlphabetLetter) {
         dataDraw = data
     }
 
-    fun reinitialization(){
+    fun reinitialization() {
         init()
     }
 
@@ -107,7 +115,7 @@ class DrawView : View {
         }
 
         val builder = AlertDialog.Builder(context)
-        builder.setView(inflate(context ,R.layout.fragment_success , null))
+        builder.setView(inflate(context, R.layout.fragment_success, null))
             .setNegativeButton(
                 R.string.back,
                 DialogInterface.OnClickListener { dialog, id ->
@@ -125,6 +133,10 @@ class DrawView : View {
 
 
     override fun onDraw(canvas: Canvas) {
+        if (clearCanvasFlag) {
+            canvas.drawColor(Color.WHITE)
+            clearCanvasFlag = false
+        }
 //        p = Path()
         // bra ye khat azmayeshi :
 //        p!!.moveTo(50f, 50f)
@@ -144,8 +156,8 @@ class DrawView : View {
 //            pointPath = getPoints(p!!)
 //            pFlag = false
             // bra roz 4 :
-            setThresholds(thresholdList , dataDraw!!)
-            pathsPoints = getPointsOfPaths(paths , thresholdList)
+            setThresholds(thresholdList, dataDraw!!)
+            pathsPoints = getPointsOfPaths(paths, thresholdList)
             pFlag = false
 
         }
@@ -174,7 +186,7 @@ class DrawView : View {
         } else {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    if (isNearOfPoint(pathsPoints, point)){
+                    if (isNearOfPoint(pathsPoints, point)) {
                         drawPath.moveTo(point.x, point.y)
                         // maybe make bug
                         drawPath.lineTo(point.x, point.y)
@@ -192,6 +204,7 @@ class DrawView : View {
                     } else {
                         drawPath.reset()
                         holdFlag = false
+                        clearDraw()
                     }
                 }
                 MotionEvent.ACTION_UP -> {
@@ -216,124 +229,138 @@ class DrawView : View {
         invalidate()
         return true
     }
-}
 
-private fun getPoints(path: Path, numOfPoints: Int = 10): Array<TouchFloatPoint?> {
-    val pointArray: Array<TouchFloatPoint?> = arrayOfNulls<TouchFloatPoint>(numOfPoints)
-    val pm = PathMeasure(path, false)
-    val length = pm.length / 2
-    var distance = 0f
-    // check maybe bug this :C
-    val speed : Float = if (numOfPoints>2){
-        length * 2 / numOfPoints
+    private fun clearDraw() {
+        clearCanvasFlag = true
+        drawPath = Path()
+        setFalsePoints(pathsPoints)
+        draw(drawCanvas)
+        invalidate()
     }
-    else{
-        length / numOfPoints
-    }
-    var counter = 0
-    val aCoordinates = FloatArray(2)
-    while (distance < length && counter < numOfPoints) {
-        // get point from the path
-        pm.getPosTan(distance, aCoordinates, null)
-        pointArray[counter] = TouchFloatPoint(
-            aCoordinates[0],
-            aCoordinates[1]
-        )
-        counter++
-        distance += speed
-    }
-    return pointArray
-}
 
-fun checkThreshold(p: Array<TouchFloatPoint?>, pointTouch: PointF): Boolean {
-    var result = false
-    val threshold = getDistance(p[0]!!, p[1]!!)
-    val concatPath = Path()
-    var concatMeasure: PathMeasure
-    p.forEach {
-        if (it != null) {
-            concatPath.moveTo(it.x, it.y)
-            concatPath.lineTo(pointTouch.x, pointTouch.y)
-            concatMeasure = PathMeasure(concatPath, false)
-            if (concatMeasure.length / 2 <= threshold) {
-                it.isTouched = true
+    private fun setFalsePoints(listPoints: List<Array<TouchFloatPoint?>>) {
+        listPoints.forEach { it ->
+            it.forEach { itT ->
+                if (itT != null) {
+                    itT.isTouched = false
+                }
+            }
+        }
+    }
+
+    private fun getPoints(path: Path, numOfPoints: Int = 10): Array<TouchFloatPoint?> {
+        val pointArray: Array<TouchFloatPoint?> = arrayOfNulls<TouchFloatPoint>(numOfPoints)
+        val pm = PathMeasure(path, false)
+        val length = pm.length / 2
+        var distance = 0f
+        // check maybe bug this :C
+        val speed: Float = if (numOfPoints > 2) {
+            length * 2 / numOfPoints
+        } else {
+            length / numOfPoints
+        }
+        var counter = 0
+        val aCoordinates = FloatArray(2)
+        while (distance < length && counter < numOfPoints) {
+            // get point from the path
+            pm.getPosTan(distance, aCoordinates, null)
+            pointArray[counter] = TouchFloatPoint(
+                aCoordinates[0],
+                aCoordinates[1]
+            )
+            counter++
+            distance += speed
+        }
+        return pointArray
+    }
+
+    private fun checkThreshold(p: Array<TouchFloatPoint?>, pointTouch: PointF): Boolean {
+        var result = false
+        val threshold = getDistance(p[0]!!, p[1]!!)
+        val concatPath = Path()
+        var concatMeasure: PathMeasure
+        p.forEach {
+            if (it != null) {
+                concatPath.moveTo(it.x, it.y)
+                concatPath.lineTo(pointTouch.x, pointTouch.y)
+                concatMeasure = PathMeasure(concatPath, false)
+                if (concatMeasure.length / 2 <= threshold) {
+                    it.isTouched = true
+                    concatPath.reset()
+                    concatPath.close()
+                    result = true
+                }
                 concatPath.reset()
                 concatPath.close()
-                result = true
             }
-            concatPath.reset()
-            concatPath.close()
         }
+        return result
     }
-    return result
-}
 
-fun getDistance(p1: TouchFloatPoint, p2: TouchFloatPoint): Float {
-    return sqrt((p1.x - p2.x).pow(2) + (p1.y - p2.y).pow(2))
-}
+    private fun getDistance(p1: TouchFloatPoint, p2: TouchFloatPoint): Float {
+        return sqrt((p1.x - p2.x).pow(2) + (p1.y - p2.y).pow(2))
+    }
 
-fun isWholeTouch(touchPoints: Array<TouchFloatPoint?>): Boolean {
-    var result = true
-    touchPoints.forEach {
-        if (it != null) {
-            result = result and it.isTouched
+    private fun isWholeTouch(touchPoints: Array<TouchFloatPoint?>): Boolean {
+        var result = true
+        touchPoints.forEach {
+            if (it != null) {
+                result = result and it.isTouched
+            }
         }
+        return result
     }
-    return result
-}
 
 
-
-// roz 3:
-fun createPath(path: Path, skeletonKind: SkeletonShape) {
-    path.reset()
-    path.moveTo(skeletonKind.startPointF.x, skeletonKind.startPointF.y)
-    val lastArrow:CurveTools
-    var index = 0
-    var firstPoint = skeletonKind.startPointF
-    var secondPoint : PointF
-    if (skeletonKind.middleShape.middlePointsF != null){
-        skeletonKind.middleShape.middlePointsF!!.forEach {
-            secondPoint = it
-            val curveArrow = skeletonKind.middleShape.curveMiddle!![index]
-            drawCurvedArrow(firstPoint , secondPoint , path , curveArrow.curveRadius , curveArrow.effectPercent)
-            firstPoint = it
-            index++
+    // roz 3:
+    private fun createPath(path: Path, skeletonKind: SkeletonShape) {
+        path.reset()
+        path.moveTo(skeletonKind.startPointF.x, skeletonKind.startPointF.y)
+        val lastArrow: CurveTools
+        var index = 0
+        var firstPoint = skeletonKind.startPointF
+        var secondPoint: PointF
+        if (skeletonKind.middleShape.middlePointsF != null) {
+            skeletonKind.middleShape.middlePointsF!!.forEach {
+                secondPoint = it
+                val curveArrow = skeletonKind.middleShape.curveMiddle!![index]
+                drawCurvedArrow(firstPoint, secondPoint, path, curveArrow.curveRadius, curveArrow.effectPercent)
+                firstPoint = it
+                index++
+            }
+            lastArrow = skeletonKind.middleShape.curveMiddle!![index]
+        } else {
+            lastArrow = skeletonKind.tools
         }
-        lastArrow = skeletonKind.middleShape.curveMiddle!![index]
-    }
-    else {
-        lastArrow = skeletonKind.tools
-    }
 //    path.lineTo(skeletonKind.endPointF.x , skeletonKind.endPointF.y)
-    drawCurvedArrow(firstPoint , skeletonKind.endPointF , path , lastArrow.curveRadius , lastArrow.effectPercent)
+        drawCurvedArrow(firstPoint, skeletonKind.endPointF, path, lastArrow.curveRadius, lastArrow.effectPercent)
 
 
 //    skeletonKind.middlePointsF.forEach {
 //        path.lineTo(it.x, it.y)
 //    }
 //    path.lineTo(skeletonKind.endPointF.x, skeletonKind.endPointF.y)
-}
+    }
 
-//roz 4:
-fun createPaths(pathList: Array<Path>, alphaLtr: AlphabetLetter) {
-    createPath(pathList[0], alphaLtr.smallShape)
-    createPath(pathList[1], alphaLtr.capitalShape)
-    var iterator = 2
-    val capAdditionalCount = alphaLtr.capitalShape.pathRequireCount() - 1
-    val smAdditionalCount = alphaLtr.smallShape.pathRequireCount() - 1
-    if (alphaLtr.smallShape.additionalShape.isNotEmpty()) {
-        for (i in iterator until smAdditionalCount + iterator) {
-            createPath(pathList[i], alphaLtr.smallShape.additionalShape[i - iterator])
+    //roz 4:
+    private fun createPaths(pathList: Array<Path>, alphaLtr: AlphabetLetter) {
+        createPath(pathList[0], alphaLtr.smallShape)
+        createPath(pathList[1], alphaLtr.capitalShape)
+        var iterator = 2
+        val capAdditionalCount = alphaLtr.capitalShape.pathRequireCount() - 1
+        val smAdditionalCount = alphaLtr.smallShape.pathRequireCount() - 1
+        if (alphaLtr.smallShape.additionalShape.isNotEmpty()) {
+            for (i in iterator until smAdditionalCount + iterator) {
+                createPath(pathList[i], alphaLtr.smallShape.additionalShape[i - iterator])
+            }
+            iterator += smAdditionalCount
         }
-        iterator += smAdditionalCount
-    }
-    if (alphaLtr.capitalShape.additionalShape.isNotEmpty()) {
-        for (i in iterator until capAdditionalCount + iterator) {
-            createPath(pathList[i], alphaLtr.capitalShape.additionalShape[i - iterator])
+        if (alphaLtr.capitalShape.additionalShape.isNotEmpty()) {
+            for (i in iterator until capAdditionalCount + iterator) {
+                createPath(pathList[i], alphaLtr.capitalShape.additionalShape[i - iterator])
+            }
         }
     }
-}
 
 //fun closePaths(pathList: Array<Path>){
 //    pathList.forEach {
@@ -342,84 +369,85 @@ fun createPaths(pathList: Array<Path>, alphaLtr: AlphabetLetter) {
 //    }
 //}
 
-fun drawPaths(canvas: Canvas, paint: Paint, pathList: Array<Path>) {
-    pathList.forEach {
-        canvas.drawPath(it, paint)
-        it.close()
-    }
-}
-
-fun getPointsOfPaths(pathList: Array<Path>, thresholds: Array<Int>): List<Array<TouchFloatPoint?>> {
-    val resultPoints: ArrayList<Array<TouchFloatPoint?>> = arrayListOf()
-    for (i in pathList.indices){
-        resultPoints.add(getPoints(pathList[i] , thresholds[i]))
-    }
-    return resultPoints.toList()
-}
-
-fun isAllPointsTouched(pointsOfPaths: List<Array<TouchFloatPoint?>>): Boolean {
-    var result = true
-    var subResult: Boolean
-    pointsOfPaths.forEach {
-        subResult = isWholeTouch(it)
-        result = result and subResult
-    }
-    return result
-}
-
-fun isNearOfPoint(pointsOfPaths: List<Array<TouchFloatPoint?>>, touchPoint: PointF): Boolean {
-    var result: Boolean
-    pointsOfPaths.forEach {
-        result = checkThreshold(it, touchPoint)
-        if (result) {
-            return true
+    private fun drawPaths(canvas: Canvas, paint: Paint, pathList: Array<Path>) {
+        pathList.forEach {
+            canvas.drawPath(it, paint)
+            it.close()
         }
     }
-    return false
-}
 
-fun setThresholds(thresholds: Array<Int>, alphaLtr: AlphabetLetter) {
-    thresholds[0] = alphaLtr.smallShape.threshold
-    thresholds[1] = alphaLtr.capitalShape.threshold
-    var iterator = 2
-    val capAdditionalCount = alphaLtr.capitalShape.pathRequireCount() - 1
-    val smAdditionalCount = alphaLtr.smallShape.pathRequireCount() - 1
-    if (alphaLtr.capitalShape.additionalShape.isNotEmpty()) {
-        for (i in iterator until capAdditionalCount + iterator) {
-            thresholds[i] = alphaLtr.capitalShape.additionalShape[i - iterator].threshold
+    private fun getPointsOfPaths(pathList: Array<Path>, thresholds: Array<Int>): List<Array<TouchFloatPoint?>> {
+        val resultPoints: ArrayList<Array<TouchFloatPoint?>> = arrayListOf()
+        for (i in pathList.indices) {
+            resultPoints.add(getPoints(pathList[i], thresholds[i]))
         }
-        iterator += capAdditionalCount
+        return resultPoints.toList()
     }
-    if (alphaLtr.smallShape.additionalShape.isNotEmpty()) {
-        for (i in iterator until smAdditionalCount + iterator) {
-            thresholds[i] = alphaLtr.smallShape.additionalShape[i - iterator].threshold
+
+    private fun isAllPointsTouched(pointsOfPaths: List<Array<TouchFloatPoint?>>): Boolean {
+        var result = true
+        var subResult: Boolean
+        pointsOfPaths.forEach {
+            subResult = isWholeTouch(it)
+            result = result and subResult
+        }
+        return result
+    }
+
+    private fun isNearOfPoint(pointsOfPaths: List<Array<TouchFloatPoint?>>, touchPoint: PointF): Boolean {
+        var result: Boolean
+        pointsOfPaths.forEach {
+            result = checkThreshold(it, touchPoint)
+            if (result) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun setThresholds(thresholds: Array<Int>, alphaLtr: AlphabetLetter) {
+        thresholds[0] = alphaLtr.smallShape.threshold
+        thresholds[1] = alphaLtr.capitalShape.threshold
+        var iterator = 2
+        val capAdditionalCount = alphaLtr.capitalShape.pathRequireCount() - 1
+        val smAdditionalCount = alphaLtr.smallShape.pathRequireCount() - 1
+        if (alphaLtr.capitalShape.additionalShape.isNotEmpty()) {
+            for (i in iterator until capAdditionalCount + iterator) {
+                thresholds[i] = alphaLtr.capitalShape.additionalShape[i - iterator].threshold
+            }
+            iterator += capAdditionalCount
+        }
+        if (alphaLtr.smallShape.additionalShape.isNotEmpty()) {
+            for (i in iterator until smAdditionalCount + iterator) {
+                thresholds[i] = alphaLtr.smallShape.additionalShape[i - iterator].threshold
+            }
         }
     }
-}
 
 // bra keshidan monhani : (dar jahat aqrabe saat)
 // curveRadius age manfi bashe reverse mishe **
 
-fun drawCurvedArrow(firstPoint: PointF, lastPoint: PointF, path: Path, curveRadius: Int, anglePercent:Int) {
+    private fun drawCurvedArrow(firstPoint: PointF, lastPoint: PointF, path: Path, curveRadius: Int, anglePercent: Int) {
 //    val paint = Paint()
 //    paint.isAntiAlias = true
 //    paint.style = Paint.Style.STROKE
 //    paint.strokeWidth = lineWidth
 //    paint.color = color
-    if (curveRadius == 0){
-        path.lineTo(lastPoint.x,lastPoint.y)
-    }
-    else{
-        val midX = firstPoint.x + (lastPoint.x - firstPoint.x) * anglePercent / 100
-        val midY = firstPoint.y + (lastPoint.y - firstPoint.y) * anglePercent / 100
-        val xDiff = (midX - firstPoint.x)
-        val yDiff = (midY - firstPoint.y)
-        val angle = atan2(yDiff.toDouble(), xDiff.toDouble()) * (180 / Math.PI) - 90
-        val angleRadians = Math.toRadians(angle)
-        val pointX = (midX + curveRadius * cos(angleRadians)).toFloat()
-        val pointY = (midY + curveRadius * sin(angleRadians)).toFloat()
+        if (curveRadius == 0) {
+            path.lineTo(lastPoint.x, lastPoint.y)
+        } else {
+            val midX = firstPoint.x + (lastPoint.x - firstPoint.x) * anglePercent / 100
+            val midY = firstPoint.y + (lastPoint.y - firstPoint.y) * anglePercent / 100
+            val xDiff = (midX - firstPoint.x)
+            val yDiff = (midY - firstPoint.y)
+            val angle = atan2(yDiff.toDouble(), xDiff.toDouble()) * (180 / Math.PI) - 90
+            val angleRadians = Math.toRadians(angle)
+            val pointX = (midX + curveRadius * cos(angleRadians)).toFloat()
+            val pointY = (midY + curveRadius * sin(angleRadians)).toFloat()
 //    path.moveTo(firstPoint.x, firstPoint.y)
-        path.cubicTo(firstPoint.x, firstPoint.y, pointX, pointY, lastPoint.x, lastPoint.y)
+            path.cubicTo(firstPoint.x, firstPoint.y, pointX, pointY, lastPoint.x, lastPoint.y)
 //    canvas.drawPath(path, paint)
+        }
     }
 }
+
