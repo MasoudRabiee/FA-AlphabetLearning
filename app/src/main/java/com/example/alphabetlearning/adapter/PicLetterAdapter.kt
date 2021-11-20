@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.model.LetterTranslator
 
-class PicLetterAdapter(private val _context: Context, private val _listData: Array<LetterTranslator>) : RecyclerView.Adapter<PicLetterAdapter.PicHolder>() {
+class PicLetterAdapter(private val _context: Context, private val _listData: MutableList<LetterTranslator>) : RecyclerView.Adapter<PicLetterAdapter.PicHolder>() {
 
     inner class PicHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val image = itemView.findViewById<ImageView>(R.id.image_drag)
