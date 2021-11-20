@@ -1,6 +1,6 @@
 package com.example.alphabetlearning.model
 
-class PuzzleAB(var name : String , var imagePuzzle: String) {
+class PuzzleAB(var imagePuzzle: String ,var name : String) {
 
     fun splitName() : Array<Char>{
         return Array<Char>(name.length){
