@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphabetLearning">
+        <activity android:name=".view.PuzzleActivity"></activity>
         <activity android:name=".view.DrawingActivity" />
         <activity android:name=".view.LetterActivity" />
         <activity android:name=".view.MainActivity">
