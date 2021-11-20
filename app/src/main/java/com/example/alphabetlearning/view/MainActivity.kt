@@ -27,5 +27,9 @@ class MainActivity : AppCompatActivity() {
             secondActivity.putExtra("alphabet", farsiAlphabet)
             startActivity(secondActivity)
         }
+        binding.btnPuzzle.setOnClickListener {
+            val secondActivity = Intent(this , PuzzleActivity::class.java)
+            startActivity(secondActivity)
+        }
     }
 }
