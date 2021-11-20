@@ -3,6 +3,7 @@ package com.example.alphabetlearning.adapter
 import android.content.ClipDescription
 import android.content.Context
 import android.view.DragEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -80,14 +81,15 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BHolder {
-        TODO("Not yet implemented")
+        val view = LayoutInflater.from(_context).inflate(R.layout.dash , parent , false)
+        return BHolder(view)
     }
 
     override fun onBindViewHolder(holder: BHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bindHolder(_context , _listData[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return _listData.count()
     }
 }
