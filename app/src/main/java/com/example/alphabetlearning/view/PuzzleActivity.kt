@@ -39,7 +39,10 @@ class PuzzleActivity : AppCompatActivity() {
             setHasFixedSize(true)
         }
 
-        picAdapter = PicLetterAdapter(this , dataTranslators)
+        val randomDataTranslator = dataTranslators.toMutableList()
+        randomDataTranslator.shuffle()
+
+        picAdapter = PicLetterAdapter(this , randomDataTranslator)
         binding.recyclerLetter.run {
             adapter = picAdapter
             layoutManager = GridLayoutManager(this@PuzzleActivity , numOfCols)
