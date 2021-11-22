@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="2"
-    android:gravity="center"
+    android:background="@drawable/pbackground"
+    android:gravity="top|center"
     android:orientation="vertical"
     tools:context=".view.PuzzleActivity">
 
@@ -14,11 +15,13 @@
         android:id="@+id/image_puzzle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        tools:src="@drawable/te"
         android:layout_weight="0.8"
-        android:contentDescription="TODO" />
+        android:layout_gravity="center"
+        android:contentDescription="TODO"
+        android:src="@drawable/te" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layoutDirection="rtl"
         android:id="@+id/mask_drop_area"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -33,7 +36,7 @@
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,17 +74,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="0dp"
+            android:id="@+id/button_puzzle_back"
+            android:text="@string/back"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
-
-        <Button
-            android:layout_width="0dp"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
-
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
