@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alphabetlearning.R
@@ -65,10 +66,12 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                             dropArea.addView(draggableItem)
                             listData.isDrop = true
                             val endGame = checkMissionCompleted(_listData)
-                            if (endGame){
-                                createAlert(_context)
+                            if (endGame) {
+                                createAlert(context)
                                 alertShow.show()
                             }
+                        } else {
+                            Toast.makeText(context , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
                         }
                         true
                     }
@@ -95,14 +98,14 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
 
         private fun checkMissionCompleted(translator: Array<LetterTranslator>): Boolean {
             translator.forEach {
-                if (!it.isDrop){
+                if (!it.isDrop) {
                     return false
                 }
             }
             return true
         }
 
-        private fun createAlert(context: Context){
+        private fun createAlert(context: Context) {
             val builder = AlertDialog.Builder(context)
             builder.setView(View.inflate(context, R.layout.fragment_success, null))
                 .setNegativeButton(
@@ -110,12 +113,6 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                     DialogInterface.OnClickListener { dialog, id ->
                         dialog.cancel()
                     })
-                .setPositiveButton(
-                    R.string.retry,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        dialog.cancel()
-                    }
-                )
 
             alertShow = builder.create()
         }
