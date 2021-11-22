@@ -1,7 +1,10 @@
 package com.example.alphabetlearning.adapter
 
+import android.app.AlertDialog
 import android.content.ClipDescription
 import android.content.Context
+import android.content.DialogInterface
+import android.graphics.Color
 import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,8 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
     inner class BHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView = itemView.findViewById<ImageView>(R.id.image_drop)
         private val cons = itemView.findViewById<ConstraintLayout>(R.id.constraint_drop)
+        private lateinit var alertShow: AlertDialog
+
         fun bindHolder(context: Context, listData: LetterTranslator) {
             val maskDragListener = View.OnDragListener { view, dragEvent ->
 
@@ -47,6 +52,9 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                         }
 
                         if (dragEvent.clipData.getItemAt(0).text == listData.letter.toString()) {
+
+                            draggableItem.setBackgroundColor(Color.parseColor("#92FE9D"))
+
                             draggableItem.x = dragEvent.x - (draggableItem.width / 2)
                             draggableItem.y = dragEvent.y - (draggableItem.height / 2)
 
@@ -55,6 +63,12 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
 
                             val dropArea = view as ConstraintLayout
                             dropArea.addView(draggableItem)
+                            listData.isDrop = true
+                            val endGame = checkMissionCompleted(_listData)
+                            if (endGame){
+                                createAlert(_context)
+                                alertShow.show()
+                            }
                         }
                         true
                     }
@@ -70,23 +84,50 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                 }
             }
 
-            val resourceId = context.resources.getIdentifier(
-                "water",
-                "drawable",
-                context.packageName
-            )
-            imageView.setImageResource(resourceId)
+//            val resourceId = context.resources.getIdentifier(
+//                "water",
+//                "drawable",
+//                context.packageName
+//            )
+//            imageView.setImageResource(resourceId)
             cons.setOnDragListener(maskDragListener)
+        }
+
+        private fun checkMissionCompleted(translator: Array<LetterTranslator>): Boolean {
+            translator.forEach {
+                if (!it.isDrop){
+                    return false
+                }
+            }
+            return true
+        }
+
+        private fun createAlert(context: Context){
+            val builder = AlertDialog.Builder(context)
+            builder.setView(View.inflate(context, R.layout.fragment_success, null))
+                .setNegativeButton(
+                    R.string.back,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    })
+                .setPositiveButton(
+                    R.string.retry,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    }
+                )
+
+            alertShow = builder.create()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BHolder {
-        val view = LayoutInflater.from(_context).inflate(R.layout.dash , parent , false)
+        val view = LayoutInflater.from(_context).inflate(R.layout.dash, parent, false)
         return BHolder(view)
     }
 
     override fun onBindViewHolder(holder: BHolder, position: Int) {
-        holder.bindHolder(_context , _listData[position])
+        holder.bindHolder(_context, _listData[position])
     }
 
     override fun getItemCount(): Int {
