@@ -12,4 +12,7 @@
         android:color="#F898D2"
         android:width="2dp" />
 
+    <solid
+        android:color="#BFFFFFFF" />
+
 </shape>
