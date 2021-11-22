@@ -2,7 +2,7 @@ package com.example.alphabetlearning.model
 
 class LetterTranslator(var letter: Char) {
     lateinit var letterImage : String
-
+    var isDrop : Boolean = false
     init {
         setLetterImage(letter)
     }
