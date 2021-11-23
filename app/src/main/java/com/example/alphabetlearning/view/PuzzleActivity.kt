@@ -25,8 +25,9 @@ class PuzzleActivity : AppCompatActivity() {
         val data = DataPuzzle.temp
 
         val dataImageRes = data.splitName()
-        dataTranslators = Array(dataImageRes.count()){
-            LetterTranslator(dataImageRes[it])
+        val dataImageCount = dataImageRes.count()
+        dataTranslators = Array(dataImageCount){
+            LetterTranslator(dataImageRes[it] , it , dataImageCount)
         }
 
         dataTranslators.toMutableList().shuffle()
