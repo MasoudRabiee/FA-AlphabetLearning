@@ -54,7 +54,7 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
 
                         if (dragEvent.clipData.getItemAt(0).text == listData.letter.toString()) {
 
-                            draggableItem.setBackgroundColor(Color.parseColor("#92FE9D"))
+                            draggableItem.setBackgroundColor(Color.parseColor("#99f2c8"))
 
                             draggableItem.x = dragEvent.x - (draggableItem.width / 2)
                             draggableItem.y = dragEvent.y - (draggableItem.height / 2)
