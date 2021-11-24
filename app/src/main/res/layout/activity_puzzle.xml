@@ -18,7 +18,7 @@
         android:layout_weight="0.8"
         android:layout_gravity="center"
         android:contentDescription="TODO"
-        android:src="@drawable/te" />
+        tools:src="@drawable/te" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layoutDirection="rtl"
