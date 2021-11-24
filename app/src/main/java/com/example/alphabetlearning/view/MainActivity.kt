@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(secondActivity)
         }
         binding.btnPuzzle.setOnClickListener {
-            val secondActivity = Intent(this , PuzzleActivity::class.java)
+            val secondActivity = Intent(this , PuzzlePicturesActivity::class.java)
             startActivity(secondActivity)
         }
     }

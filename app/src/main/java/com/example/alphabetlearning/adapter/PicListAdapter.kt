@@ -11,9 +11,9 @@ import com.example.alphabetlearning.R
 import com.example.alphabetlearning.model.PuzzleAB
 import com.example.alphabetlearning.view.PuzzleActivity
 
-class PicListAdapter(private var _context: Context, private var _listData: Array<PuzzleAB>) : RecyclerView.Adapter<PicListAdapter.Holder>() {
+class PicListAdapter(private var _context: Context, private var _listData: ArrayList<PuzzleAB>) : RecyclerView.Adapter<PicListAdapter.Holder>() {
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imagePic = itemView.findViewById<ImageView>(R.id.image_view1)
+        private val imagePic = itemView.findViewById<ImageView>(R.id.image_view13)
 
         fun bindHolder(context: Context, data: PuzzleAB) {
             val resourceId = context.resources.getIdentifier(data.imagePuzzle, "drawable" , context.packageName)
