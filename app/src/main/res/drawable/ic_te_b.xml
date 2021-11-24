@@ -10,7 +10,6 @@
     <path
         android:pathData="M-3,-29L250,-29A15,15 0,0 1,265 -14L265,146A15,15 0,0 1,250 161L-3,161A15,15 0,0 1,-18 146L-18,-14A15,15 0,0 1,-3 -29z"
         android:strokeWidth="7"
-        android:fillColor="#fff"
         android:strokeColor="#00000000"/>
     <path
         android:pathData="M-3,-25.5L250,-25.5A11.5,11.5 0,0 1,261.5 -14L261.5,146A11.5,11.5 0,0 1,250 157.5L-3,157.5A11.5,11.5 0,0 1,-14.5 146L-14.5,-14A11.5,11.5 0,0 1,-3 -25.5z"
@@ -22,8 +21,7 @@
           android:pathData="M-15,-30h275v190h-275z"/>
     </group>
     <path
-        android:pathData="M-15,137h275v15h-275z"
-        android:fillColor="#fff"/>
+        android:pathData="M-15,137h275v15h-275z" />
     <path
         android:pathData="M232.762,15.493s8.734,0 8.734,7.676 -8.734,9 -8.734,9 -8.205,-0.794 -8.205,-9S232.762,15.493 232.762,15.493Z">
       <aapt:attr name="android:fillColor">

@@ -10,7 +10,6 @@
     <path
         android:pathData="M-4,-9L245,-9A13,13 0,0 1,258 4L258,169A13,13 0,0 1,245 182L-4,182A13,13 0,0 1,-17 169L-17,4A13,13 0,0 1,-4 -9z"
         android:strokeWidth="6"
-        android:fillColor="#fff"
         android:strokeColor="#00000000"/>
     <path
         android:pathData="M-4,-6L245,-6A10,10 0,0 1,255 4L255,169A10,10 0,0 1,245 179L-4,179A10,10 0,0 1,-14 169L-14,4A10,10 0,0 1,-4 -6z"
