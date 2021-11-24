@@ -1,6 +1,10 @@
 package com.example.alphabetlearning.model
 
-class PuzzleAB(var imagePuzzle: String ,var name : String) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class PuzzleAB(var imagePuzzle: String ,var name : String) : Parcelable {
 
     fun splitName() : Array<Char>{
         return Array<Char>(name.length){
