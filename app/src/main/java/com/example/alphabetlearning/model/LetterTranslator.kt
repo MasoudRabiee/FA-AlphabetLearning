@@ -106,9 +106,9 @@ class LetterTranslator(var letter: Char, index: Int, count: Int) {
                 "ic_kaf_k"
             }
             'گ' -> if (difference == 1) {
-                "ic_qaf_b"
+                "ic_gaf_b"
             } else {
-                "ic_qaf_k"
+                "ic_gaf_k"
             }
             'ل' -> if (difference == 1) {
                 "ic_le_b"
