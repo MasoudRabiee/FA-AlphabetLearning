@@ -86,7 +86,7 @@ class LetterTranslator(var letter: Char, index: Int, count: Int) {
                 "ic_eyn_k"
             }
             'غ' -> if (difference == 1) {
-                "ic_qhyn_b"
+                "ic_ghyn_b"
             } else {
                 "ic_ghyn_k"
             }
