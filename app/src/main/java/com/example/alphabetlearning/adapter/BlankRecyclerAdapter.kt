@@ -4,7 +4,7 @@ import android.app.AlertDialog
 import android.content.ClipDescription
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +22,7 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
         private val imageView = itemView.findViewById<ImageView>(R.id.image_drop)
         private val cons = itemView.findViewById<ConstraintLayout>(R.id.constraint_drop)
         private lateinit var alertShow: AlertDialog
+        private lateinit var gradientColor: GradientDrawable
 
         fun bindHolder(context: Context, listData: LetterTranslator) {
             val maskDragListener = View.OnDragListener { view, dragEvent ->
@@ -54,7 +55,9 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
 
                         if (dragEvent.clipData.getItemAt(0).text == listData.letter.toString()) {
 
-                            draggableItem.setBackgroundColor(Color.parseColor("#99f2c8"))
+                            gradientColor = GradientDrawable(GradientDrawable.Orientation.BR_TL, intArrayOf(0xFFA1FFCE.toInt(), 0xFFFAFFD1.toInt(), 0xFFFAFFD1.toInt(), 0xFFA1FFCE.toInt()))
+                            gradientColor.cornerRadius = 0f
+                            draggableItem.background = gradientColor
 
                             draggableItem.x = dragEvent.x - (draggableItem.width / 2)
                             draggableItem.y = dragEvent.y - (draggableItem.height / 2)
@@ -71,7 +74,7 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                                 alertShow.show()
                             }
                         } else {
-                            Toast.makeText(context , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "اشتباه کردی ! دوباره تلاش کن", Toast.LENGTH_SHORT).show()
                         }
                         true
                     }
