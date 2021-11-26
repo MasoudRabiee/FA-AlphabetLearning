@@ -3,8 +3,6 @@ package com.example.alphabetlearning.view
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
@@ -29,7 +27,7 @@ class DrawView : View {
 
     //    var p: Path? = null
 //    var r: Region? = null
-    private lateinit var pointPath: Array<TouchFloatPoint?>
+//    private lateinit var pointPath: Array<TouchFloatPoint?>
     private var pFlag = true
     private var holdFlag = false
 
@@ -47,7 +45,7 @@ class DrawView : View {
     private lateinit var alertShow: AlertDialog
 
     // context
-    private lateinit var _context: Context
+    private var _context: Context
     private var clearCanvasFlag = false
     private lateinit var toast: Toast
 
@@ -77,13 +75,13 @@ class DrawView : View {
         init()
     }
 
-    fun setDataDrawer(data: AlphabetLetter) {
-        dataDraw = data
-    }
-
-    fun reinitialization() {
-        init()
-    }
+//    fun setDataDrawer(data: AlphabetLetter) {
+//        dataDraw = data
+//    }
+//
+//    fun reinitialization() {
+//        init()
+//    }
 
     private fun init() {
         // initialize variables :
@@ -119,17 +117,16 @@ class DrawView : View {
         val builder = AlertDialog.Builder(context)
         builder.setView(inflate(context, R.layout.fragment_success, null))
             .setNegativeButton(
-                R.string.back,
-                DialogInterface.OnClickListener { dialog, id ->
-                    dialog.cancel()
-                })
+                R.string.back
+            ) { dialog, _ ->
+                dialog.cancel()
+            }
             .setPositiveButton(
-                R.string.retry,
-                DialogInterface.OnClickListener { dialog, id ->
-                    dialog.cancel()
-                    clearDraw()
-                }
-            )
+                R.string.retry
+            ) { dialog, _ ->
+                dialog.cancel()
+                clearDraw()
+            }
 
         alertShow = builder.create()
 

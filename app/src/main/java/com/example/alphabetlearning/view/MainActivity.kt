@@ -3,12 +3,9 @@ package com.example.alphabetlearning.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.alphabetlearning.R
 import com.example.alphabetlearning.data.DataAlphabet
 import com.example.alphabetlearning.databinding.ActivityMainBinding
 import com.example.alphabetlearning.model.Alphabet
-import com.example.alphabetlearning.model.AlphabetLetter
-import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 

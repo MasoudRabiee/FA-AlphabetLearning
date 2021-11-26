@@ -3,13 +3,11 @@ package com.example.alphabetlearning.adapter
 import android.app.AlertDialog
 import android.content.ClipDescription
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.drawable.GradientDrawable
 import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +17,6 @@ import com.example.alphabetlearning.model.LetterTranslator
 class BlankRecyclerAdapter(private val _context: Context, private val _listData: Array<LetterTranslator>) : RecyclerView.Adapter<BlankRecyclerAdapter.BHolder>() {
 
     inner class BHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView = itemView.findViewById<ImageView>(R.id.image_drop)
         private val cons = itemView.findViewById<ConstraintLayout>(R.id.constraint_drop)
         private lateinit var alertShow: AlertDialog
         private lateinit var gradientColor: GradientDrawable
@@ -112,10 +109,10 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
             val builder = AlertDialog.Builder(context)
             builder.setView(View.inflate(context, R.layout.fragment_success, null))
                 .setNegativeButton(
-                    R.string.back,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        dialog.cancel()
-                    })
+                    R.string.back
+                ) { dialog, _ ->
+                    dialog.cancel()
+                }
 
             alertShow = builder.create()
         }

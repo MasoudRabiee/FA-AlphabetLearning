@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.alphabetlearning.R
 import com.example.alphabetlearning.adapter.LetterRecyclerAdapter
 import com.example.alphabetlearning.databinding.ActivityLetterBinding
 import com.example.alphabetlearning.model.Alphabet
