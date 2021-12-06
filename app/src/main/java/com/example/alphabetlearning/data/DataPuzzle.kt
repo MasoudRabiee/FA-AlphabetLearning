@@ -5,11 +5,9 @@ import com.example.alphabetlearning.model.PuzzleAB
 object DataPuzzle {
     val data = arrayListOf<PuzzleAB>(
         PuzzleAB("water"  , "آب"),
-        PuzzleAB("darya"  , "دریا"),
         PuzzleAB("abi"  , "آبی"),
         PuzzleAB("baad"  , "باد"),
         PuzzleAB("baba"  , "بابا"),
-        PuzzleAB("baran"  , "باران"),
         PuzzleAB("medad"  , "مداد"),
         PuzzleAB("miz"  , "میز"),
         PuzzleAB("parcham"  , "پرچم"),
