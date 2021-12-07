@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.alphabetlearning.adapter.LetterRecyclerAdapter
+import com.example.alphabetlearning.data.DataAlphabet
 import com.example.alphabetlearning.databinding.ActivityLetterBinding
 import com.example.alphabetlearning.model.Alphabet
 
@@ -20,15 +21,7 @@ class LetterActivity : AppCompatActivity() {
         binding = ActivityLetterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var alphabet = Alphabet(arrayListOf())
-        val data = intent.extras
-        if (data != null) {
-            alphabet = data.getParcelable<Alphabet>("alphabet") as Alphabet
-        }
-        else{
-            Toast.makeText(this , "داده ها دریافت نشدند" , Toast.LENGTH_LONG).show()
-        }
-
+        val alphabet = DataAlphabet.farsiAlphabet
 
         adapter = LetterRecyclerAdapter(this , alphabet.alphabetLetters)
         val numOfCols = 3

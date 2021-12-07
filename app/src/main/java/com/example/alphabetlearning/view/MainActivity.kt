@@ -10,7 +10,7 @@ import com.example.alphabetlearning.model.Alphabet
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var farsiAlphabet : Alphabet
+    private lateinit var secondActivity : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,14 +18,16 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        farsiAlphabet = DataAlphabet.farsiAlphabet
         binding.btnDrawLetter.setOnClickListener {
-            val secondActivity = Intent(this , LetterActivity::class.java)
-            secondActivity.putExtra("alphabet", farsiAlphabet)
+            secondActivity = Intent(this , LetterActivity::class.java)
             startActivity(secondActivity)
         }
         binding.btnPuzzle.setOnClickListener {
-            val secondActivity = Intent(this , PuzzlePicturesActivity::class.java)
+            secondActivity = Intent(this , PuzzlePicturesActivity::class.java)
+            startActivity(secondActivity)
+        }
+        binding.btnGame.setOnClickListener {
+            secondActivity = Intent(this , LetterActivity::class.java)
             startActivity(secondActivity)
         }
     }
