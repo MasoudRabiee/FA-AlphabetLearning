@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnDrawLetter.setOnClickListener {
-            secondActivity = Intent(this , LetterActivity::class.java)
+            secondActivity = Intent(this , LetterActivity::class.java).apply {
+                putExtra("PreActivity" , 2)
+            }
             startActivity(secondActivity)
         }
         binding.btnPuzzle.setOnClickListener {
@@ -27,7 +29,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(secondActivity)
         }
         binding.btnGame.setOnClickListener {
-            secondActivity = Intent(this , LetterActivity::class.java)
+            secondActivity = Intent(this , MotionGameActivity::class.java).apply {
+                putExtra("PreActivity" , 1)
+            }
             startActivity(secondActivity)
         }
     }
