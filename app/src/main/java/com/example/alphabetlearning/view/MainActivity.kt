@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(secondActivity)
         }
         binding.btnGame.setOnClickListener {
-            secondActivity = Intent(this , MotionGameActivity::class.java).apply {
+            secondActivity = Intent(this , LetterActivity::class.java).apply {
                 putExtra("PreActivity" , 1)
             }
             startActivity(secondActivity)

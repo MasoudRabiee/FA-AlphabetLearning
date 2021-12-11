@@ -22,20 +22,17 @@ class LetterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val alphabet = DataAlphabet.farsiAlphabet
-        val flag = intent.extras?.getInt("PreActivity")
-
-        if (flag == 1){
-            Toast.makeText(this , "dd ees sa" , Toast.LENGTH_LONG).show()
-        }
-        else {
-            adapter = LetterRecyclerAdapter(this , alphabet.alphabetLetters)
-            val numOfCols = 3
-            val layoutManager = GridLayoutManager(this , numOfCols)
-            binding.recyclerLetter.adapter = adapter
-            binding.recyclerLetter.layoutManager = layoutManager
-            binding.recyclerLetter.setHasFixedSize(true)
+        var flag = 1
+        if (intent.extras != null){
+            flag = intent.extras?.getInt("PreActivity") as Int
         }
 
+        adapter = LetterRecyclerAdapter(this, alphabet.alphabetLetters, flag)
+        val numOfCols = 3
+        val layoutManager = GridLayoutManager(this, numOfCols)
+        binding.recyclerLetter.adapter = adapter
+        binding.recyclerLetter.layoutManager = layoutManager
+        binding.recyclerLetter.setHasFixedSize(true)
 
 
     }
