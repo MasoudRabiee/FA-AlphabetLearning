@@ -2,9 +2,9 @@ package com.example.alphabetlearning.view
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
+import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.graphics.Path
 import android.os.Build
@@ -14,6 +14,10 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
+import com.example.alphabetlearning.R
+import com.example.alphabetlearning.data.DataPersianLetter
 import com.example.alphabetlearning.databinding.ActivityMotionGameBinding
 import com.example.alphabetlearning.model.MotionJob
 import kotlinx.coroutines.*
@@ -23,12 +27,15 @@ class MotionGameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMotionGameBinding
     private var width = 0
     private var height = 0
-    private var job: Job? = null
+    private var xSize = 0f
+    private var ySize = 0f
+    private lateinit var nameLetter: String
+    private var resFlag = true
     private lateinit var dataMotion: Array<MotionJob>
+    private lateinit var alertShow: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
         binding = ActivityMotionGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -37,41 +44,55 @@ class MotionGameActivity : AppCompatActivity() {
         height = displayMetrics.heightPixels
         width = displayMetrics.widthPixels
 
+        nameLetter = intent.extras?.getString("id") as String
+        binding.btnCorrect.text = nameLetter
+        binding.btnWrong.text = randomLetter(nameLetter)
+        binding.btnCorrect.setBackgroundColor(randomColor())
+        binding.btnWrong.setBackgroundColor(randomColor())
+        binding.textView.text = nameLetter
+
         binding.pBarResult.progressTintList = ColorStateList.valueOf(Color.CYAN)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(View.inflate(this, R.layout.fragment_success, null))
+            .setNegativeButton(
+                R.string.back
+            ) { dialog, _ ->
+                dialog.cancel()
+                finish()
+            }
+            .setPositiveButton(
+                R.string.retry
+            ) { dialog, _ ->
+                dialog.cancel()
+                val backActivity = Intent(this , MotionGameActivity::class.java).apply {
+                    putExtra("id" , nameLetter)
+                }
+                startActivity(backActivity)
+                finish()
+            }
+        alertShow = builder.create()
 
         startAction(binding.pBarResult)
 
-        val imageView = binding.imageHadaf
-        val xSize = imageView.x
-        val ySize = height - imageView.y
-        val text = binding.textView
+        xSize = binding.imageHadaf.x
+        ySize = height - binding.imageHadaf.y
 
         MotionJob.configure(width, height)
-        val zalo = MotionJob(binding.btnWrong)
-        val dalo = MotionJob(binding.btnCorrect)
+        val firstJob = MotionJob(binding.btnWrong)
+        val secondJob = MotionJob(binding.btnCorrect)
 
         dataMotion = arrayOf(
-            zalo, dalo
+            firstJob, secondJob
         )
 
         startMotion(dataMotion)
         binding.btnWrong.setOnClickListener {
-            if (text.text == binding.btnWrong.text) {
-                zalo.job.cancel()
-            }
+            checkCorrectPick(binding.btnWrong , firstJob)
         }
         binding.btnCorrect.setOnClickListener {
-            if (text.text == binding.btnCorrect.text) {
-                dalo.job.cancel()
-                animatePath(binding.btnCorrect, xSize, ySize)
-                binding.pBarResult.progress += 12
-                reviveButton(binding.btnCorrect)
-                createNewButton(binding.constraintGames)
-                dalo.launchJob()
-            }
+            checkCorrectPick(binding.btnCorrect , secondJob)
         }
-
-
     }
 
     private fun startAction(prgBar: ProgressBar) {
@@ -79,15 +100,15 @@ class MotionGameActivity : AppCompatActivity() {
             while (true) {
                 when {
                     prgBar.progress < 25 -> prgBar.progressDrawable.colorFilter =
-                        BlendModeColorFilter(Color.RED, BlendMode.SRC_IN)
+                        BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.RED, BlendModeCompat.SRC_IN)
                     prgBar.progress in 25..50 -> prgBar.progressDrawable.colorFilter =
-                        BlendModeColorFilter(Color.argb(255, 255, 242, 0), BlendMode.SRC_IN)
+                        BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.argb(255, 255, 242, 0), BlendModeCompat.SRC_IN)
                     prgBar.progress == 100 -> {
-                        Toast.makeText(this@MotionGameActivity, "ez pz", Toast.LENGTH_SHORT).show()
+                        alertShow.show()
                         cancel()
                     }
                     else -> prgBar.progressDrawable.colorFilter =
-                        BlendModeColorFilter(Color.argb(255, 30, 150, 0), BlendMode.SRC_IN)
+                        BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.argb(255, 30, 150, 0), BlendModeCompat.SRC_IN)
                 }
                 delay(1000)
             }
@@ -101,24 +122,42 @@ class MotionGameActivity : AppCompatActivity() {
         }
     }
 
-    private fun createNewButton(cons : ConstraintLayout) {
+    private fun checkCorrectPick(button: Button , job: MotionJob) {
+        if (nameLetter == button.text) {
+            job.job.cancel()
+            animatePath(button, xSize, ySize)
+            binding.pBarResult.progress += 12
+            reviveButton(button)
+            createNewButton(binding.constraintGames)
+            job.launchJob()
+        }
+    }
+
+    private fun createNewButton(cons: ConstraintLayout) {
         val button = Button(this)
         button.layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.WRAP_CONTENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT
         )
-        button.text = "Click"
         button.x = (100..width).random().toFloat()
         button.y = (100..height).random().toFloat()
-        button.setOnClickListener {
-            button.text = "You just clicked me"
+        button.setBackgroundColor(randomColor())
+        button.textSize = 30f
+        button.setTextColor(Color.WHITE)
+        if (resFlag) {
+            button.text = randomLetter(nameLetter)
+        } else {
+            button.text = nameLetter
+            resFlag = true
         }
-        button.setBackgroundColor(Color.GREEN)
-        button.setTextColor(Color.RED)
-        cons.addView(button)
         val newJob = MotionJob(button).apply {
             launchJob()
         }
+        cons.addView(button)
+        button.setOnClickListener {
+            checkCorrectPick(button , newJob)
+        }
+
     }
 
     private fun reviveButton(button: Button) {
@@ -136,8 +175,17 @@ class MotionGameActivity : AppCompatActivity() {
                 duration = 2000
                 start()
             }
+            button.setBackgroundColor(randomColor())
+            if (resFlag) {
+                button.text = randomLetter(nameLetter)
+            } else {
+                button.text = nameLetter
+                resFlag = true
+            }
+
         }
     }
+
 
     override fun onPause() {
         super.onPause()
@@ -172,23 +220,33 @@ class MotionGameActivity : AppCompatActivity() {
 
     }
 
-    private fun setup(hello: Button) {
-        job = GlobalScope.launch(Dispatchers.Main) {
-            val buttonWidth = hello.width
-            val buttonHeight = hello.height
-            var xIndex = 1
-            var yIndex = 1
-            while (true) {
-                when {
-                    hello.x > width - buttonWidth -> xIndex = -1
-                    hello.x < 0 -> xIndex = 1
-                    hello.y > height - buttonHeight -> yIndex = -1
-                    hello.y < 0 -> yIndex = 1
-                }
-                hello.x += xIndex
-                hello.y += yIndex
-                delay(1)
-            }
+    private fun randomColor(): Int {
+        val colors = arrayListOf(
+            Color.rgb(246, 79, 89),
+            Color.rgb(249, 83, 198),
+            Color.rgb(18, 194, 233),
+            Color.rgb(56, 239, 125)
+        )
+        return colors.random()
+    }
+
+    private fun getSomeLetter(deleteLetter: String): List<String> {
+        val letters = DataPersianLetter.LETTER.apply {
+            remove(deleteLetter)
+            shuffle()
         }
+        return letters.slice(0..3)
+    }
+
+    private fun randomLetter(nameLetter: String): String {
+        val letters = getSomeLetter(nameLetter).toMutableList().apply {
+            for (i in 0..3)
+                add(nameLetter)
+        }
+        val result = letters.random()
+        if (result != nameLetter) {
+            resFlag = false
+        }
+        return result
     }
 }
