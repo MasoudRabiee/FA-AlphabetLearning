@@ -56,8 +56,8 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                             gradientColor.cornerRadius = 0f
                             draggableItem.background = gradientColor
 
-                            draggableItem.x = dragEvent.x - (draggableItem.width / 2)
-                            draggableItem.y = dragEvent.y - (draggableItem.height / 2)
+                            draggableItem.x = draggableItem.x
+                            draggableItem.y = draggableItem.y
 
                             val parent = draggableItem.parent as ConstraintLayout
                             parent.removeView(draggableItem)
