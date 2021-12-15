@@ -3,9 +3,7 @@ package com.example.alphabetlearning.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.alphabetlearning.data.DataAlphabet
 import com.example.alphabetlearning.databinding.ActivityMainBinding
-import com.example.alphabetlearning.model.Alphabet
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +13,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnDrawLetter.setOnClickListener {
@@ -31,6 +28,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnGame.setOnClickListener {
             secondActivity = Intent(this , LetterActivity::class.java).apply {
                 putExtra("PreActivity" , 1)
+            }
+            startActivity(secondActivity)
+        }
+        binding.btnPickGame.setOnClickListener {
+            secondActivity = Intent(this , LetterActivity::class.java).apply {
+                putExtra("PreActivity" , 3)
             }
             startActivity(secondActivity)
         }
