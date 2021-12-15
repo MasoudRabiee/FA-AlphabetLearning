@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlphabetLearning">
-        <activity android:name=".view.MotionGameActivity"/>
+        <activity android:name=".view.GameUpActivity"/>
+        <activity android:name=".view.MotionGameActivity" />
         <activity android:name=".view.PuzzlePicturesActivity" />
         <activity android:name=".view.PuzzleActivity" />
         <activity android:name=".view.DrawingActivity" />
