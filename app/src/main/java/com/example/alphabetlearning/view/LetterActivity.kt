@@ -22,7 +22,7 @@ class LetterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val alphabet = DataAlphabet.farsiAlphabet
-        var flag = 1
+        var flag = 0
         if (intent.extras != null){
             flag = intent.extras?.getInt("PreActivity") as Int
         }
