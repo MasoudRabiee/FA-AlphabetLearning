@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.model.AlphabetLetter
 import com.example.alphabetlearning.view.DrawingActivity
+import com.example.alphabetlearning.view.GameUpActivity
 import com.example.alphabetlearning.view.MotionGameActivity
 
 class LetterRecyclerAdapter(
@@ -32,10 +33,18 @@ class LetterRecyclerAdapter(
                     context.startActivity(nextActivity)
                 }
             }
-            else {
+            else if (setClickKind == 2) {
                 imageCategory.setOnClickListener{
                     val nextActivity = Intent(context , DrawingActivity::class.java)
                     nextActivity.putExtra("shape" , letter)
+                    context.startActivity(nextActivity)
+                }
+            }
+            else {
+                imageCategory.setOnClickListener {
+                    val nextActivity = Intent(context, GameUpActivity::class.java).apply {
+                        putExtra("id", letter.letter)
+                    }
                     context.startActivity(nextActivity)
                 }
             }
