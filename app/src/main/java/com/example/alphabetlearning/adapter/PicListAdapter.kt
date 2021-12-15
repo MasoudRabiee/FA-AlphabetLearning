@@ -17,11 +17,13 @@ class PicListAdapter(private var _context: Context, private var _listData: Array
 
         fun bindHolder(context: Context, data: PuzzleAB) {
             val resourceId = context.resources.getIdentifier(data.imagePuzzle, "drawable" , context.packageName)
-            imagePic.setImageResource(resourceId)
-            imagePic.setOnClickListener {
-                val nextActivity = Intent(_context , PuzzleActivity::class.java)
-                nextActivity.putExtra("pic" , data)
-                _context.startActivity(nextActivity)
+            imagePic.apply {
+                setImageResource(resourceId)
+                setOnClickListener {
+                    val nextActivity = Intent(context , PuzzleActivity::class.java)
+                    nextActivity.putExtra("pic" , data)
+                    context.startActivity(nextActivity)
+                }
             }
         }
     }
