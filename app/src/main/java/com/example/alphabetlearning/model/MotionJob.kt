@@ -32,7 +32,7 @@ class MotionJob(private var btn: ImageButton) {
                 }
                 btn.x += xIndex
                 btn.y += yIndex
-                delay(1)
+                delay(2)
             }
         }
     }
