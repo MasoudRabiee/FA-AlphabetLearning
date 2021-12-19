@@ -3,6 +3,7 @@ package com.example.alphabetlearning.view
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -19,6 +20,7 @@ import androidx.core.graphics.BlendModeCompat
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.data.DataPersianLetter
 import com.example.alphabetlearning.databinding.ActivityMotionGameBinding
+import com.example.alphabetlearning.model.LetterTranslator
 import com.example.alphabetlearning.model.MotionJob
 import kotlinx.coroutines.*
 
@@ -30,6 +32,7 @@ class MotionGameActivity : AppCompatActivity() {
     private var xSize = 0f
     private var ySize = 0f
     private lateinit var nameLetter: String
+    private lateinit var key: String
     private var resFlag = true
     private lateinit var dataMotion: Array<MotionJob>
     private lateinit var alertShow: AlertDialog
@@ -45,11 +48,9 @@ class MotionGameActivity : AppCompatActivity() {
         width = displayMetrics.widthPixels
 
         nameLetter = intent.extras?.getString("id") as String
-        binding.btnCorrect.text = nameLetter
-        binding.btnWrong.text = randomLetter(nameLetter)
-        binding.btnCorrect.setBackgroundColor(randomColor())
-        binding.btnWrong.setBackgroundColor(randomColor())
-        binding.textView.text = nameLetter
+        key = setResID(this, nameLetter[0]).toString()
+
+        configureContentButtons(binding, this)
 
         binding.pBarResult.progressTintList = ColorStateList.valueOf(Color.CYAN)
 
@@ -65,8 +66,8 @@ class MotionGameActivity : AppCompatActivity() {
                 R.string.retry
             ) { dialog, _ ->
                 dialog.cancel()
-                val backActivity = Intent(this , MotionGameActivity::class.java).apply {
-                    putExtra("id" , nameLetter)
+                val backActivity = Intent(this, MotionGameActivity::class.java).apply {
+                    putExtra("id", nameLetter)
                 }
                 startActivity(backActivity)
                 finish()
@@ -88,10 +89,13 @@ class MotionGameActivity : AppCompatActivity() {
 
         startMotion(dataMotion)
         binding.btnWrong.setOnClickListener {
-            checkCorrectPick(binding.btnWrong , firstJob)
+            checkCorrectPick(binding.btnWrong, firstJob)
         }
         binding.btnCorrect.setOnClickListener {
-            checkCorrectPick(binding.btnCorrect , secondJob)
+            checkCorrectPick(binding.btnCorrect, secondJob)
+        }
+        binding.imgbtnBack.setOnClickListener {
+            finish()
         }
     }
 
@@ -122,45 +126,52 @@ class MotionGameActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkCorrectPick(button: Button , job: MotionJob) {
-        if (nameLetter == button.text) {
+    private fun checkCorrectPick(button: ImageButton, job: MotionJob) {
+        if (key == button.contentDescription) {
             job.job.cancel()
             animatePath(button, xSize, ySize)
             binding.pBarResult.progress += 12
-            reviveButton(button)
+            reviveButton(this, button)
             createNewButton(binding.constraintGames)
             job.launchJob()
         }
     }
 
     private fun createNewButton(cons: ConstraintLayout) {
-        val button = Button(this)
+        val button = ImageButton(this)
         button.layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+            200 , 200
         )
+        button.scaleType = ImageView.ScaleType.FIT_XY
+        button.setPadding(5,5,5,5)
         button.x = (100..width).random().toFloat()
         button.y = (100..height).random().toFloat()
-        button.setBackgroundColor(randomColor())
-        button.textSize = 30f
-        button.setTextColor(Color.WHITE)
+        button.setBackgroundResource(R.drawable.border_shape)
+
         if (resFlag) {
-            button.text = randomLetter(nameLetter)
+            button.apply {
+                val id = setResID(context, randomLetter(nameLetter)[0])
+                setImageResource(id)
+                contentDescription = id.toString()
+            }
         } else {
-            button.text = nameLetter
-            resFlag = true
+            button.apply {
+                val id = setResID(context, nameLetter[0])
+                setImageResource(id)
+                contentDescription = id.toString()
+            }
         }
         val newJob = MotionJob(button).apply {
             launchJob()
         }
         cons.addView(button)
         button.setOnClickListener {
-            checkCorrectPick(button , newJob)
+            checkCorrectPick(button, newJob)
         }
 
     }
 
-    private fun reviveButton(button: Button) {
+    private fun reviveButton(context: Context, button: ImageButton) {
         GlobalScope.launch(Dispatchers.Main) {
             delay(1500)
             val randomX = (100..width).random()
@@ -175,11 +186,18 @@ class MotionGameActivity : AppCompatActivity() {
                 duration = 2000
                 start()
             }
-            button.setBackgroundColor(randomColor())
             if (resFlag) {
-                button.text = randomLetter(nameLetter)
+                button.apply {
+                    val id = setResID(context, randomLetter(nameLetter)[0])
+                    setImageResource(id)
+                    contentDescription = id.toString()
+                }
             } else {
-                button.text = nameLetter
+                button.apply {
+                    val id = setResID(context, nameLetter[0])
+                    setImageResource(id)
+                    contentDescription = id.toString()
+                }
                 resFlag = true
             }
 
@@ -198,7 +216,7 @@ class MotionGameActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    private fun animatePath(button: Button, width: Float, height: Float) {
+    private fun animatePath(button: ImageButton, width: Float, height: Float) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val path = Path().apply {
                 moveTo(button.x, button.y)
@@ -248,5 +266,24 @@ class MotionGameActivity : AppCompatActivity() {
             resFlag = false
         }
         return result
+    }
+
+    private fun setResID(context: Context, charTranslator: Char): Int {
+        val translator = LetterTranslator(charTranslator, 0, 1).letterImage
+        return context.resources.getIdentifier(translator, "drawable", context.packageName)
+    }
+
+    private fun configureContentButtons(binding: ActivityMotionGameBinding, context: Context) {
+        binding.btnCorrect.apply {
+            val resId = setResID(context, nameLetter[0])
+            setImageResource(resId)
+            contentDescription = resId.toString()
+        }
+        binding.btnWrong.apply {
+            val resId = setResID(context, randomLetter(nameLetter)[0])
+            setImageResource(resId)
+            contentDescription = resId.toString()
+        }
+        binding.textView.text = nameLetter
     }
 }
