@@ -62,7 +62,7 @@ class GameUpActivity : AppCompatActivity() {
                     binding.pBarUpResult.progress += 10
                 }
                 else {
-                    Toast.makeText(this , "" , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -72,7 +72,7 @@ class GameUpActivity : AppCompatActivity() {
                 binding.pBarUpResult.progress += 10
             }
             else {
-                Toast.makeText(this , "" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
             }
         }
         binding.imageButtonSecond.setOnClickListener {
@@ -81,7 +81,7 @@ class GameUpActivity : AppCompatActivity() {
                 binding.pBarUpResult.progress += 10
             }
             else {
-                Toast.makeText(this , "" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
             }
         }
         binding.imgbtnBack.setOnClickListener {
