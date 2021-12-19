@@ -1,9 +1,9 @@
 package com.example.alphabetlearning.model
 
-import android.widget.Button
+import android.widget.ImageButton
 import kotlinx.coroutines.*
 
-class MotionJob(private var btn: Button) {
+class MotionJob(private var btn: ImageButton) {
 
     companion object {
         private var screenWidth: Int = 0
