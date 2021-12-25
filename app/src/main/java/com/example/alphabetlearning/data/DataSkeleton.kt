@@ -1,11 +1,12 @@
 package com.example.alphabetlearning.data
 
-import android.graphics.Point
 import android.graphics.PointF
 import com.example.alphabetlearning.model.*
 
 object DataSkeleton {
     // Default Properties :
+    private var SWidth = ScreenTool.width
+    private var SHeight = ScreenTool.height
     private val defaultCurveTools = CurveTools()
     private val defaultMiddlePoint = MiddlePointTools(null, null)
     private val defaultAdditional: ArrayList<SkeletonShape> = arrayListOf()
@@ -13,85 +14,84 @@ object DataSkeleton {
     // _________________________________________________________________________________________
     // 1. ALEF :
 
-    private val ALEF_Middle = MiddlePointTools(null, null)
     private val ALEF_Mid_Addi = MiddlePointTools(
-        arrayListOf(PointF(875f, 150f), PointF(725f, 150f)),
-        arrayListOf(CurveTools(25), defaultCurveTools, CurveTools(-25))
+        arrayListOf(PointF(SWidth * 0.9f, SHeight * 0.2f), PointF(SWidth * 0.6f, SHeight * 0.2f)),
+        arrayListOf(CurveTools(10), defaultCurveTools, CurveTools(-10))
     )
-    private val ALEF_Additional = arrayListOf<SkeletonShape>(
-        SkeletonShape(PointF(900f, 125f), PointF(700f, 175f), ALEF_Mid_Addi, defaultAdditional, defaultCurveTools)
+    private val ALEF_Additional = arrayListOf(
+        SkeletonShape(PointF(SWidth * 0.9f, SHeight * 0.175f), PointF(SWidth * 0.6f, SHeight * 0.225f), ALEF_Mid_Addi, defaultAdditional, defaultCurveTools, 25)
     )
-    val ALEF_Skeleton_Cap = SkeletonShape(PointF(300f, 300f), PointF(300f, 700f),defaultMiddlePoint, defaultAdditional, defaultCurveTools)
-    val ALEF_Skeleton_Sm = SkeletonShape(PointF(800f, 300f), PointF(800f, 700f), ALEF_Middle, ALEF_Additional, defaultCurveTools)
+    val ALEF_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.25f, SHeight * 0.3f), PointF(SWidth * 0.25f, SHeight * 0.6f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50)
+    val ALEF_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.75f, SHeight * 0.3f), PointF(SWidth * 0.75f, SHeight * 0.6f), defaultMiddlePoint, ALEF_Additional, defaultCurveTools, 50)
 
     // _________________________________________________________________________________________
     // 2. Be :
 
     private val BE_Middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(850f, 550f)),
+        arrayListOf(PointF(SWidth * 0.8f, SHeight * 0.45f)),
         arrayListOf(CurveTools(50), defaultCurveTools)
     )
     private val BE_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(850f, 650f), PointF(860f, 650f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.775f, SHeight * 0.55f), PointF(SWidth * 0.79f, SHeight * 0.55f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val BE_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(500f, 550f), PointF(300f, 550f)),
+        arrayListOf(PointF(SWidth * 0.5f, SHeight * 0.45f), PointF(SWidth * 0.2f, SHeight * 0.45f)),
         arrayListOf(CurveTools(50), defaultCurveTools, CurveTools(50))
     )
     private val BE_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(400f, 650f), PointF(410f, 650f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.35f, SHeight * 0.55f), PointF(SWidth * 0.365f, SHeight * 0.55f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
-    val BE_Skeleton_Sm = SkeletonShape(PointF(900f, 500f), PointF(800f, 550f), BE_Middle_Sm, BE_Addi_Sm, defaultCurveTools)
-    val BE_Skeleton_Cap = SkeletonShape(PointF(550f, 500f), PointF(250f, 500f), BE_Middle_Cap, BE_Addi_Cap, defaultCurveTools)
+    val BE_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.85f, SHeight * 0.4f), PointF(SWidth * 0.7f, SHeight * 0.45f), BE_Middle_Sm, BE_Addi_Sm, defaultCurveTools, 30)
+    val BE_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.55f, SHeight * 0.4f), PointF(SWidth * 0.15f, SHeight * 0.4f), BE_Middle_Cap, BE_Addi_Cap, defaultCurveTools, 80)
 
     // _________________________________________________________________________________________
     // 3. Pe : derived from BE
 
     private val PE_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(895f, 650f), PointF(885f, 650f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(815f, 650f), PointF(825f, 650f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(850f, 700f), PointF(860f, 700f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.81f, SHeight * 0.55f), PointF(SWidth * 0.825f, SHeight * 0.55f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.72f, SHeight * 0.55f), PointF(SWidth * 0.735f, SHeight * 0.55f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.765f, SHeight * 0.6f), PointF(SWidth * 0.78f, SHeight * 0.6f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    private val PE_Addi_Cap = arrayListOf<SkeletonShape>(
-        SkeletonShape(PointF(440f, 650f), PointF(450f, 650f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(360f, 650f), PointF(370f, 650f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(400f, 700f), PointF(410f, 700f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+    private val PE_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(SWidth * 0.395f, SHeight * 0.55f), PointF(SWidth * 0.41f, SHeight * 0.55f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.305f, SHeight * 0.55f), PointF(SWidth * 0.32f, SHeight * 0.55f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.35f, SHeight * 0.6f), PointF(SWidth * 0.365f, SHeight * 0.6f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
-    val PE_Skeleton_Sm = SkeletonShape(PointF(900f, 500f), PointF(800f, 550f), BE_Middle_Sm, PE_Addi_Sm, defaultCurveTools)
-    val PE_Skeleton_Cap = SkeletonShape(PointF(550f, 500f), PointF(250f, 500f), BE_Middle_Cap, PE_Addi_Cap, defaultCurveTools)
+    val PE_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.85f, SHeight * 0.4f), PointF(SWidth * 0.7f, SHeight * 0.45f), BE_Middle_Sm, PE_Addi_Sm, defaultCurveTools, 30)
+    val PE_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.55f, SHeight * 0.4f), PointF(SWidth * 0.15f, SHeight * 0.4f), BE_Middle_Cap, PE_Addi_Cap, defaultCurveTools, 80)
 
     // _________________________________________________________________________________________
     // 4. Te : derived from BE
 
     private val TE_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(895f, 450f), PointF(885f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(815f, 450f), PointF(825f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.81f, SHeight * 0.325f), PointF(SWidth * 0.825f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.72f, SHeight * 0.325f), PointF(SWidth * 0.735f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    private val TE_Addi_Cap = arrayListOf<SkeletonShape>(
-        SkeletonShape(PointF(440f, 450f), PointF(450f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(360f, 450f), PointF(370f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+    private val TE_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(SWidth * 0.395f, SHeight * 0.325f), PointF(SWidth * 0.41f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.305f, SHeight * 0.325f), PointF(SWidth * 0.32f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
-    val TE_Skeleton_Sm = SkeletonShape(PointF(900f, 500f), PointF(800f, 550f), BE_Middle_Sm, TE_Addi_Sm, defaultCurveTools)
-    val TE_Skeleton_Cap = SkeletonShape(PointF(550f, 500f), PointF(250f, 500f), BE_Middle_Cap, TE_Addi_Cap, defaultCurveTools)
+    val TE_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.85f, SHeight * 0.4f), PointF(SWidth * 0.7f, SHeight * 0.45f), BE_Middle_Sm, TE_Addi_Sm, defaultCurveTools, 30)
+    val TE_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.55f, SHeight * 0.4f), PointF(SWidth * 0.15f, SHeight * 0.4f), BE_Middle_Cap, TE_Addi_Cap, defaultCurveTools, 80)
 
     // _________________________________________________________________________________________
     // 5. Se : derived from BE
 
     private val SE_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(895f, 450f), PointF(885f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(815f, 450f), PointF(825f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(850f, 400f), PointF(860f, 400f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.81f, SHeight * 0.325f), PointF(SWidth * 0.825f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.72f, SHeight * 0.325f), PointF(SWidth * 0.735f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.765f, SHeight * 0.275f), PointF(SWidth * 0.78f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
-    private val SE_Addi_Cap = arrayListOf<SkeletonShape>(
-        SkeletonShape(PointF(440f, 450f), PointF(450f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(360f, 450f), PointF(370f, 450f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(400f, 400f), PointF(410f, 400f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+    private val SE_Addi_Cap = arrayListOf(
+        SkeletonShape(PointF(SWidth * 0.395f, SHeight * 0.325f), PointF(SWidth * 0.41f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.305f, SHeight * 0.325f), PointF(SWidth * 0.32f, SHeight * 0.325f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.35f, SHeight * 0.275f), PointF(SWidth * 0.365f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    val SE_Skeleton_Sm = SkeletonShape(PointF(900f, 500f), PointF(800f, 550f), BE_Middle_Sm, SE_Addi_Sm, defaultCurveTools)
-    val SE_Skeleton_Cap = SkeletonShape(PointF(550f, 500f), PointF(250f, 500f), BE_Middle_Cap, SE_Addi_Cap, defaultCurveTools)
+    val SE_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.85f, SHeight * 0.4f), PointF(SWidth * 0.7f, SHeight * 0.45f), BE_Middle_Sm, SE_Addi_Sm, defaultCurveTools, 30)
+    val SE_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.55f, SHeight * 0.4f), PointF(SWidth * 0.15f, SHeight * 0.4f), BE_Middle_Cap, SE_Addi_Cap, defaultCurveTools, 80)
 
     // _________________________________________________________________________________________
     // 6. jim :
@@ -105,10 +105,10 @@ object DataSkeleton {
         arrayListOf(CurveTools(75), CurveTools(-25), CurveTools(-175), CurveTools(-175), CurveTools(175), CurveTools(175))
     )
     private val Jim_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(800f, 700f), PointF(810f, 700f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(800f, 700f), PointF(810f, 700f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Jim_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(400f, 800f), PointF(410f, 800f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(400f, 800f), PointF(410f, 800f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
     val JIM_Skeleton_Sm = SkeletonShape(PointF(750f, 500f), PointF(925f, 600f), Jim_Middle_Sm, Jim_Addi_Sm, defaultCurveTools, 20)
@@ -118,14 +118,14 @@ object DataSkeleton {
     // 7. Che : derived from Jim
 
     private val Che_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(775f, 700f), PointF(785f, 700f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(850f, 700f), PointF(860f, 700f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(815f, 750f), PointF(825f, 750f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(775f, 700f), PointF(785f, 700f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(850f, 700f), PointF(860f, 700f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(815f, 750f), PointF(825f, 750f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Che_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(375f, 800f), PointF(385f, 800f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(450f, 800f), PointF(460f, 800f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(415f, 850f), PointF(425f, 850f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(375f, 800f), PointF(385f, 800f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(450f, 800f), PointF(460f, 800f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(415f, 850f), PointF(425f, 850f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
     val Che_Skeleton_Sm = SkeletonShape(PointF(750f, 500f), PointF(925f, 600f), Jim_Middle_Sm, Che_Addi_Sm, defaultCurveTools, 20)
@@ -141,10 +141,10 @@ object DataSkeleton {
     // 9. khe : derived form Jim
 
     private val Khe_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(800f, 350f), PointF(810f, 350f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(800f, 350f), PointF(810f, 350f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Khe_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(350f, 350f), PointF(360f, 350f),defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(350f, 350f), PointF(360f, 350f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
     val KHE_Skeleton_Sm = SkeletonShape(PointF(750f, 500f), PointF(925f, 600f), Jim_Middle_Sm, Khe_Addi_Sm, defaultCurveTools, 20)
