@@ -3,7 +3,10 @@ package com.example.alphabetlearning.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
+import com.example.alphabetlearning.data.DataSkeleton
 import com.example.alphabetlearning.databinding.ActivityMainBinding
+import com.example.alphabetlearning.model.ScreenTool
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +18,12 @@ class MainActivity : AppCompatActivity() {
 //        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        // set screen tool fields :
+        ScreenTool.initTool(displayMetrics.widthPixels,displayMetrics.heightPixels)
+
         binding.btnDrawLetter.setOnClickListener {
             secondActivity = Intent(this , LetterActivity::class.java).apply {
                 putExtra("PreActivity" , 2)
