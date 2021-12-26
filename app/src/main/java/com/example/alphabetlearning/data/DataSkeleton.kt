@@ -432,251 +432,287 @@ object DataSkeleton {
     // _________________________________________________________________________________________
     // 21. EYN :
 
-    //    private val middleCurveEyn = MiddlePointTools(
-//        arrayListOf(PointF(450f, 1100f) , PointF(300f ,750f)),
-//        arrayListOf(CurveTools(-450 , 50) ,CurveTools(450 , 50) ,CurveTools(-450 , 50))
-//    )
-    private val Eyn_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(850f, 750f), PointF(625f, 750f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 30)
+    private val middleCurveEyn_Cap = MiddlePointTools(
+        arrayListOf(
+            PointF(SWidth * 0.25f, SHeight * 0.425f),
+            PointF(SWidth * 0.35f, SHeight * 0.425f),
+            PointF(SWidth * 0.25f, SHeight * 0.425f),
+            PointF(SWidth * 0.35f, SHeight * 0.635f),
+            PointF(SWidth * 0.25f, SHeight * 0.425f),
+            PointF(SWidth * 0.35f, SHeight * 0.635f),
+            PointF(SWidth * 0.25f, SHeight * 0.425f),
+            PointF(SWidth * 0.35f, SHeight * 0.635f),
+            PointF(SWidth * 0.25f, SHeight * 0.425f)
+        ),
+        arrayListOf(
+            CurveTools(-150, 40),
+            defaultCurveTools,
+            defaultCurveTools,
+            CurveTools(-450, 50),
+            CurveTools(450, 50),
+            CurveTools(-450, 50),
+            CurveTools(450, 50),
+            CurveTools(-450, 50),
+            CurveTools(450, 50),
+            defaultCurveTools
+        )
     )
-    private var Eyn_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(400f, 750f), PointF(300f, 750f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 35),
-        SkeletonShape(PointF(300f, 750f), PointF(300f, 1100f), defaultMiddlePoint, defaultAdditional, CurveTools(-300, 75), 50),
-        SkeletonShape(PointF(300f, 1100f), PointF(450f, 1075f), defaultMiddlePoint, defaultAdditional, CurveTools(-30), 50),
+    private val middleCurveEyn_sm = MiddlePointTools(
+        arrayListOf(
+            PointF(SWidth * 0.7f, SHeight * 0.425f),
+            PointF(SWidth * 0.8f, SHeight * 0.425f),
+            PointF(SWidth * 0.7f, SHeight * 0.425f),
+            PointF(SWidth * 0.575f, SHeight * 0.425f),
+            PointF(SWidth * 0.8f, SHeight * 0.425f),
+            PointF(SWidth * 0.7f, SHeight * 0.425f),
+            PointF(SWidth * 0.575f, SHeight * 0.425f)
+        ),
+        arrayListOf(CurveTools(-150, 40), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools)
     )
 
-    val EYN_Skeleton_Sm = SkeletonShape(PointF(850f, 600f), PointF(750f, 750f), defaultMiddlePoint, Eyn_Addi_Sm, CurveTools(-150, 40), 50)
-    val EYN_Skeleton_Cap = SkeletonShape(PointF(400f, 600f), PointF(300f, 750f), defaultMiddlePoint, Eyn_Addi_Cap, CurveTools(-150, 40), 50)
+    val EYN_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.335f), PointF(SWidth * 0.8f, SHeight * 0.425f), middleCurveEyn_sm, defaultAdditional, defaultCurveTools, 100)
+    val EYN_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.35f, SHeight * 0.335f), PointF(SWidth * 0.35f, SHeight * 0.425f), middleCurveEyn_Cap, defaultAdditional, defaultCurveTools, 200)
 
     // _________________________________________________________________________________________
     // 22.GHYN : derived from EYN
 
     private val Ghyn_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(850f, 750f), PointF(625f, 750f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 30)
-
+        SkeletonShape(PointF(SWidth * 0.795f, SHeight * 0.25f), PointF(SWidth * 0.805f, SHeight * 0.25f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private var Ghyn_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(400f, 750f), PointF(300f, 750f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 100),
-        SkeletonShape(PointF(300f, 750f), PointF(300f, 1100f), defaultMiddlePoint, defaultAdditional, CurveTools(-300, 75), 100),
-        SkeletonShape(PointF(300f, 1100f), PointF(450f, 1075f), defaultMiddlePoint, defaultAdditional, CurveTools(-30), 100)
-
+        SkeletonShape(PointF(SWidth * 0.345f, SHeight * 0.25f), PointF(SWidth * 0.355f, SHeight * 0.25f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    val GHYN_Skeleton_Sm = SkeletonShape(PointF(850f, 600f), PointF(750f, 750f), defaultMiddlePoint, Ghyn_Addi_Sm, CurveTools(-150, 40), 50)
-    val GHYN_Skeleton_Cap = SkeletonShape(PointF(400f, 600f), PointF(300f, 750f), defaultMiddlePoint, Ghyn_Addi_Cap, CurveTools(-150, 40), 100)
+    val GHYN_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.335f), PointF(SWidth * 0.7f, SHeight * 0.425f), middleCurveEyn_sm, Ghyn_Addi_Sm, defaultCurveTools, 100)
+    val GHYN_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.35f, SHeight * 0.335f), PointF(SWidth * 0.35f, SHeight * 0.425f), middleCurveEyn_Cap, Ghyn_Addi_Cap, defaultCurveTools, 200)
 
     // _________________________________________________________________________________________
     // 23. Fe :
 
     private val Fe_Middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(750f, 750f), PointF(825f, 650f), PointF(900f, 750f), PointF(875f, 850f), PointF(700f, 850f), PointF(875f, 850f), PointF(700f, 850f), PointF(875f, 850f)),
-        arrayListOf(defaultCurveTools, CurveTools(60), CurveTools(60), CurveTools(25, 65), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools)
+        arrayListOf(
+            PointF(SWidth * 0.75f, SHeight * 0.425f),
+            PointF(SWidth * 0.825f, SHeight * 0.365f),
+            PointF(SWidth * 0.9f, SHeight * 0.425f),
+            PointF(SWidth * 0.875f, SHeight * 0.485f),
+            PointF(SWidth * 0.7f, SHeight * 0.485f),
+            PointF(SWidth * 0.875f, SHeight * 0.485f),
+            PointF(SWidth * 0.7f, SHeight * 0.485f),
+            PointF(SWidth * 0.875f, SHeight * 0.485f)
+        ),
+        arrayListOf(CurveTools(25), CurveTools(60), CurveTools(60), CurveTools(25, 65), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools)
     )
     private val Fe_Middle_Cap = MiddlePointTools(
         arrayListOf(
-            PointF(450f, 750f),
-            PointF(525f, 650f),
-            PointF(600f, 750f),
-            PointF(575f, 850f),
-            PointF(400f, 850f),
-            PointF(150f, 850f),
-            PointF(100f, 750f),
-            PointF(150f, 850f),
-            PointF(400f, 850f),
-            PointF(575f, 850f),
-            PointF(400f, 850f),
-            PointF(150f, 850f)
+            PointF(SWidth * 0.4f, SHeight * 0.425f),
+            PointF(SWidth * 0.475f, SHeight * 0.365f),
+            PointF(SWidth * 0.55f, SHeight * 0.425f),
+            PointF(SWidth * 0.525f, SHeight * 0.485f),
+            PointF(SWidth * 0.35f, SHeight * 0.485f),
+            PointF(SWidth * 0.1f, SHeight * 0.485f),
+            PointF(SWidth * 0.05f, SHeight * 0.425f),
+            PointF(SWidth * 0.1f, SHeight * 0.485f),
+            PointF(SWidth * 0.35f, SHeight * 0.485f),
+            PointF(SWidth * 0.525f, SHeight * 0.485f),
+            PointF(SWidth * 0.35f, SHeight * 0.485f),
+            PointF(SWidth * 0.1f, SHeight * 0.485f)
         ),
         arrayListOf(
-            defaultCurveTools, CurveTools(60), CurveTools(60), CurveTools(25, 65), defaultCurveTools, defaultCurveTools, CurveTools(50), CurveTools(-50), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools,
+            CurveTools(25), CurveTools(60), CurveTools(60), CurveTools(25, 65), defaultCurveTools, defaultCurveTools, CurveTools(50), CurveTools(-50), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools,
             defaultCurveTools
         )
     )
     private val Fe_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(825f, 500f), PointF(840f, 500f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.825f, SHeight * 0.275f), PointF(SWidth * 0.835f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Fe_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(525f, 500f), PointF(540f, 500f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.47f, SHeight * 0.275f), PointF(SWidth * 0.48f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    val FE_Skeleton_Sm = SkeletonShape(PointF(900f, 750f), PointF(700f, 850f), Fe_Middle_Sm, Fe_Addi_Sm, defaultCurveTools, 100)
-    val FE_Skeleton_Cap = SkeletonShape(PointF(600f, 750f), PointF(400f, 850f), Fe_Middle_Cap, Fe_Addi_Cap, defaultCurveTools, 150)
+    val FE_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.9f, SHeight * 0.425f), PointF(SWidth * 0.7f, SHeight * 0.485f), Fe_Middle_Sm, Fe_Addi_Sm, defaultCurveTools, 100)
+    val FE_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.55f, SHeight * 0.425f), PointF(SWidth * 0.35f, SHeight * 0.485f), Fe_Middle_Cap, Fe_Addi_Cap, defaultCurveTools, 200)
 
     // _________________________________________________________________________________________
     // 24 . QAF :
 
     private val Qaf_Middle_Cap = MiddlePointTools(
         arrayListOf(
-            PointF(400f, 750f),
-            PointF(475f, 650f),
-            PointF(550f, 750f),
-            PointF(550f, 850f),
-            PointF(350f, 1000f),
-            PointF(150f, 850f),
-            PointF(150f, 750f),
-            PointF(150f, 850f),
-            PointF(350f, 1000f),
-            PointF(550f, 850f),
-            PointF(350f, 1000f),
-            PointF(150f, 850f),
-
-            ),
+            PointF(SWidth * 0.35f, SHeight * 0.425f),
+            PointF(SWidth * 0.425f, SHeight * 0.365f),
+            PointF(SWidth * 0.5f, SHeight * 0.425f),
+            PointF(SWidth * 0.5f, SHeight * 0.485f),
+            PointF(SWidth * 0.3f, SHeight * 0.575f),
+            PointF(SWidth * 0.1f, SHeight * 0.485f),
+            PointF(SWidth * 0.1f, SHeight * 0.425f),
+            PointF(SWidth * 0.1f, SHeight * 0.485f),
+            PointF(SWidth * 0.3f, SHeight * 0.575f),
+            PointF(SWidth * 0.5f, SHeight * 0.485f),
+            PointF(SWidth * 0.3f, SHeight * 0.575f),
+            PointF(SWidth * 0.1f, SHeight * 0.485f),
+        ),
         arrayListOf(
-            defaultCurveTools, CurveTools(60), CurveTools(60), CurveTools(5),
+            CurveTools(25), CurveTools(60), CurveTools(60), CurveTools(5),
             CurveTools(100), CurveTools(100), CurveTools(5),
             CurveTools(-5), CurveTools(-100), CurveTools(-100),
             CurveTools(100), CurveTools(100), CurveTools(5)
         )
     )
     private val Qaf_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(900f, 500f), PointF(885f, 500f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(800f, 500f), PointF(785f, 500f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.86f, SHeight * 0.275f), PointF(SWidth * 0.87f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.77f, SHeight * 0.275f), PointF(SWidth * 0.78f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Qaf_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(550f, 500f), PointF(535f, 500f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(450f, 500f), PointF(435f, 500f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.46f, SHeight * 0.275f), PointF(SWidth * 0.47f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.37f, SHeight * 0.275f), PointF(SWidth * 0.38f, SHeight * 0.275f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    val QAF_Skeleton_Sm = SkeletonShape(PointF(900f, 750f), PointF(700f, 850f), Fe_Middle_Sm, Qaf_Addi_Sm, defaultCurveTools, 100)
-    val QAF_Skeleton_Cap = SkeletonShape(PointF(550f, 750f), PointF(150f, 750f), Qaf_Middle_Cap, Qaf_Addi_Cap, defaultCurveTools, 150)
+    val QAF_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.9f, SHeight * 0.425f), PointF(SWidth * 0.7f, SHeight * 0.485f), Fe_Middle_Sm, Qaf_Addi_Sm, defaultCurveTools, 100)
+    val QAF_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.425f), PointF(SWidth * 0.1f, SHeight * 0.425f), Qaf_Middle_Cap, Qaf_Addi_Cap, defaultCurveTools, 150)
 
     // _________________________________________________________________________________________
     // 25. KAF :
 
     private val Kaf_Middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(850f, 850f), PointF(800f, 950f), PointF(700f, 950f)),
+        arrayListOf(PointF(SWidth * 0.8f, SHeight * 0.485f), PointF(SWidth * 0.75f, SHeight * 0.545f), PointF(SWidth * 0.625f, SHeight * 0.545f)),
         arrayListOf(defaultCurveTools, CurveTools(40), defaultCurveTools, defaultCurveTools)
     )
     private val Kaf_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(550f, 850f), PointF(500f, 950f), PointF(150f, 950f), PointF(100f, 850f), PointF(150f, 950f)),
+        arrayListOf(PointF(SWidth * 0.5f, SHeight * 0.485f), PointF(SWidth * 0.45f, SHeight * 0.545f), PointF(SWidth * 0.1f, SHeight * 0.545f), PointF(SWidth * 0.05f, SHeight * 0.485f), PointF(SWidth * 0.1f, SHeight * 0.545f)),
         arrayListOf(defaultCurveTools, CurveTools(40), defaultCurveTools, CurveTools(40, 25), CurveTools(-40, 75), defaultCurveTools)
     )
     private val Kaf_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(850f, 525f), PointF(1000f, 300f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
+        SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.297f), PointF(SWidth * 0.95f, SHeight * 0.17f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
     )
     private val Kaf_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(550f, 525f), PointF(800f, 300f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
+        SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.297f), PointF(SWidth * 0.75f, SHeight * 0.17f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
     )
 
-    val KAF_Skeleton_Sm = SkeletonShape(PointF(850f, 550f), PointF(750f, 950f), Kaf_Middle_Sm, Kaf_Addi_Sm, defaultCurveTools, 100)
-    val KAF_Skeleton_Cap = SkeletonShape(PointF(550f, 550f), PointF(500f, 950f), Kaf_Middle_Cap, Kaf_Addi_Cap, defaultCurveTools, 150)
+    val KAF_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.305f), PointF(SWidth * 0.75f, SHeight * 0.545f), Kaf_Middle_Sm, Kaf_Addi_Sm, defaultCurveTools, 75)
+    val KAF_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.305f), PointF(SWidth * 0.45f, SHeight * 0.545f), Kaf_Middle_Cap, Kaf_Addi_Cap, defaultCurveTools, 150)
 
     // _________________________________________________________________________________________
     // 26. GAF : derived from KAF
 
     private val Gaf_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(850f, 525f), PointF(1000f, 300f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
-        SkeletonShape(PointF(850f, 375f), PointF(1000f, 150f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50)
+        SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.297f), PointF(SWidth * 0.95f, SHeight * 0.17f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
+        SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.212f), PointF(SWidth * 0.95f, SHeight * 0.085f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50)
     )
     private val Gaf_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(550f, 525f), PointF(800f, 300f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
-        SkeletonShape(PointF(550f, 375f), PointF(800f, 150f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
+        SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.297f), PointF(SWidth * 0.75f, SHeight * 0.17f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
+        SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.212f), PointF(SWidth * 0.75f, SHeight * 0.085f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 50),
     )
 
-    val GAF_Skeleton_Sm = SkeletonShape(PointF(850f, 550f), PointF(750f, 950f), Kaf_Middle_Sm, Gaf_Addi_Sm, defaultCurveTools, 100)
-    val GAF_Skeleton_Cap = SkeletonShape(PointF(550f, 550f), PointF(500f, 950f), Kaf_Middle_Cap, Gaf_Addi_Cap, defaultCurveTools, 150)
+    val GAF_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.305f), PointF(SWidth * 0.75f, SHeight * 0.545f), Kaf_Middle_Sm, Gaf_Addi_Sm, defaultCurveTools, 75)
+    val GAF_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.305f), PointF(SWidth * 0.45f, SHeight * 0.545f), Kaf_Middle_Cap, Gaf_Addi_Cap, defaultCurveTools, 150)
 
     // _________________________________________________________________________________________
     // 27 . LAM :
 
     private val Lam_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(500f, 850f), PointF(350f, 1100f), defaultMiddlePoint, defaultAdditional, CurveTools(150, 75), 40),
-        SkeletonShape(PointF(350f, 1100f), PointF(200f, 850f), defaultMiddlePoint, defaultAdditional, CurveTools(150, 25), 40),
+        SkeletonShape(PointF(SWidth * 0.45f, SHeight * 0.545f), PointF(SWidth * 0.3f, SHeight * 0.695f), defaultMiddlePoint, defaultAdditional, CurveTools(175, 75), 40),
+        SkeletonShape(PointF(SWidth * 0.3f, SHeight * 0.695f), PointF(SWidth * 0.15f, SHeight * 0.545f), defaultMiddlePoint, defaultAdditional, CurveTools(175, 25), 40),
     )
 
-    val LAM_Skeleton_Sm = SkeletonShape(PointF(850f, 550f), PointF(750f, 950f), Kaf_Middle_Sm, defaultAdditional, defaultCurveTools, 100)
-    val LAM_Skeleton_Cap = SkeletonShape(PointF(500f, 550f), PointF(500f, 850f), defaultMiddlePoint, Lam_Addi_Cap, defaultCurveTools, 50)
+    val LAM_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.305f), PointF(SWidth * 0.75f, SHeight * 0.545f), Kaf_Middle_Sm, defaultAdditional, defaultCurveTools, 75)
+    val LAM_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.45f, SHeight * 0.305f), PointF(SWidth * 0.45f, SHeight * 0.545f), defaultMiddlePoint, Lam_Addi_Cap, defaultCurveTools, 50)
 
     // _________________________________________________________________________________________
     // 28. MIM :
 
     private val Mim_Middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(700f, 650f), PointF(775f, 800f), PointF(850f, 650f), PointF(600f, 650f), PointF(850f, 650f)),
+        arrayListOf(PointF(SWidth * 0.65f, SHeight * 0.365f), PointF(SWidth * 0.725f, SHeight * 0.455f), PointF(SWidth * 0.8f, SHeight * 0.365f), PointF(SWidth * 0.55f, SHeight * 0.365f), PointF(SWidth * 0.8f, SHeight * 0.365f)),
         arrayListOf(defaultCurveTools, CurveTools(-75, 70), CurveTools(-75, 30), defaultCurveTools, defaultCurveTools, defaultCurveTools)
     )
     private val Mim_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(300f, 650f), PointF(375f, 800f), PointF(450f, 650f), PointF(225f, 650f), PointF(200f, 675f), PointF(200f, 1100f), PointF(200f, 675f), PointF(200f, 1100f)),
-        arrayListOf(defaultCurveTools, CurveTools(-75, 70), CurveTools(-75, 30), defaultCurveTools, CurveTools(-15), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools)
+        arrayListOf(
+            PointF(SWidth * 0.25f, SHeight * 0.365f),
+            PointF(SWidth * 0.325f, SHeight * 0.455f),
+            PointF(SWidth * 0.4f, SHeight * 0.365f),
+            PointF(SWidth * 0.175f, SHeight * 0.365f),
+            PointF(SWidth * 0.15f, SHeight * 0.365f),
+            PointF(SWidth * 0.15f, SHeight * 0.695f),
+            PointF(SWidth * 0.15f, SHeight * 0.38f),
+            PointF(SWidth * 0.15f, SHeight * 0.695f)
+        ),
+        arrayListOf(defaultCurveTools, CurveTools(-75, 70), CurveTools(-75, 30), defaultCurveTools, CurveTools(-5), defaultCurveTools, defaultCurveTools, defaultCurveTools, defaultCurveTools)
     )
 
-    val MIM_Skeleton_Sm = SkeletonShape(PointF(850f, 650f), PointF(600f, 650f), Mim_Middle_Sm, defaultAdditional, defaultCurveTools, 100)
-    val MIM_Skeleton_Cap = SkeletonShape(PointF(450f, 650f), PointF(200f, 675f), Mim_Middle_Cap, defaultAdditional, defaultCurveTools, 100)
+    val MIM_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.365f), PointF(SWidth * 0.55f, SHeight * 0.365f), Mim_Middle_Sm, defaultAdditional, defaultCurveTools, 100)
+    val MIM_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.4f, SHeight * 0.365f), PointF(SWidth * 0.15f, SHeight * 0.38f), Mim_Middle_Cap, defaultAdditional, defaultCurveTools, 175)
 
     // _________________________________________________________________________________________
     // 29 . NOON : derived from Be
 
-    private val Noon_Middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(900f, 725f), PointF(875f, 750f), PointF(750f, 750f), PointF(875f, 750f)),
-        arrayListOf(defaultCurveTools, CurveTools(15), defaultCurveTools, defaultCurveTools, defaultCurveTools)
-    )
     private val Noon_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(400f, 1000f), PointF(250f, 750f), PointF(400f, 1000f)),
+        arrayListOf(PointF(SWidth * 0.35f, SHeight * 0.575f), PointF(SWidth * 0.2f, SHeight * 0.425f), PointF(SWidth * 0.35f, SHeight * 0.575f)),
         arrayListOf(CurveTools(215), CurveTools(215), CurveTools(-215), CurveTools(-215))
     )
     private val Noon_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(800f, 550f), PointF(815f, 550f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.75f, SHeight * 0.305f), PointF(SWidth * 0.76f, SHeight * 0.305f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Noon_Addi_Cap = arrayListOf(
-        SkeletonShape(PointF(400f, 600f), PointF(415f, 600f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.35f, SHeight * 0.335f), PointF(SWidth * 0.36f, SHeight * 0.335f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
 
-    val NOON_Skeleton_Sm = SkeletonShape(PointF(900f, 650f), PointF(750f, 750f), Noon_Middle_Sm, Noon_Addi_Sm, defaultCurveTools, 50)
-    val NOON_Skeleton_Cap = SkeletonShape(PointF(550f, 750f), PointF(550f, 750f), Noon_Middle_Cap, Noon_Addi_Cap, defaultCurveTools, 100)
+    val NOON_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.85f, SHeight * 0.4f), PointF(SWidth * 0.7f, SHeight * 0.45f), BE_Middle_Sm, Noon_Addi_Sm, defaultCurveTools, 30)
+    val NOON_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.425f), PointF(SWidth * 0.5f, SHeight * 0.425f), Noon_Middle_Cap, Noon_Addi_Cap, defaultCurveTools, 100)
+
     // _________________________________________________________________________________________
     // 30.  VAV :
 
     private val Vav_middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(675f, 650f), PointF(850f, 650f), PointF(625f, 950f), PointF(850f, 650f)),
+        arrayListOf(PointF(SWidth * 0.625f, SHeight * 0.365f), PointF(SWidth * 0.8f, SHeight * 0.365f), PointF(SWidth * 0.575f, SHeight * 0.545f), PointF(SWidth * 0.8f, SHeight * 0.365f)),
         arrayListOf(CurveTools(150), CurveTools(275), CurveTools(150), CurveTools(-150), CurveTools(150))
     )
     private val Vav_middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(275f, 650f), PointF(450f, 650f), PointF(225f, 950f), PointF(450f, 650f)),
+        arrayListOf(PointF(SWidth * 0.225f, SHeight * 0.365f), PointF(SWidth * 0.4f, SHeight * 0.365f), PointF(SWidth * 0.175f, SHeight * 0.545f), PointF(SWidth * 0.4f, SHeight * 0.365f)),
         arrayListOf(CurveTools(150), CurveTools(275), CurveTools(150), CurveTools(-150), CurveTools(150))
     )
 
-    val VAV_Skeleton_Sm = SkeletonShape(PointF(850f, 650f), PointF(625f, 950f), Vav_middle_Sm, defaultAdditional, defaultCurveTools, 100)
-    val VAV_Skeleton_Cap = SkeletonShape(PointF(450f, 650f), PointF(225f, 950f), Vav_middle_Cap, defaultAdditional, defaultCurveTools, 100)
+    val VAV_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.8f, SHeight * 0.365f), PointF(SWidth * 0.575f, SHeight * 0.545f), Vav_middle_Sm, defaultAdditional, defaultCurveTools, 100)
+    val VAV_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.4f, SHeight * 0.365f), PointF(SWidth * 0.175f, SHeight * 0.545f), Vav_middle_Cap, defaultAdditional, defaultCurveTools, 100)
 
     // _________________________________________________________________________________________
     // 31 . HEdo:
 
-//    private val HEdo_Middle_Sm = MiddlePointTools(
-//        arrayListOf(PointF(900f, 850f), PointF(675f, 850f), PointF(750f, 650f), PointF(675f, 850f), PointF(750f, 650f), PointF(840f, 720f), PointF(675f, 850f)),
-//        arrayListOf(CurveTools(100), CurveTools(25, 10), CurveTools(100), CurveTools(-100), CurveTools(100), CurveTools(40), CurveTools(20) , defaultCurveTools)
-//    )
-
     private val HEdo_Middle_Sm = MiddlePointTools(
-        arrayListOf(PointF(900f, 850f), PointF(675f, 850f), PointF(750f, 650f), PointF(675f, 850f), PointF(750f, 650f)),
+        arrayListOf(PointF(SWidth * 0.85f, SHeight * 0.485f), PointF(SWidth * 0.625f, SHeight * 0.485f), PointF(SWidth * 0.7f, SHeight * 0.365f), PointF(SWidth * 0.625f, SHeight * 0.485f), PointF(SWidth * 0.7f, SHeight * 0.365f)),
         arrayListOf(CurveTools(100), CurveTools(25, 10), CurveTools(100), CurveTools(-100), CurveTools(100), CurveTools(-100))
     )
     private val HEdo_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(325f, 850f), PointF(325f, 625f), PointF(150f, 700f), PointF(325f, 750f), PointF(150f, 700f)),
+        arrayListOf(PointF(SWidth * 0.275f, SHeight * 0.485f), PointF(SWidth * 0.275f, SHeight * 0.365f), PointF(SWidth * 0.1f, SHeight * 0.395f), PointF(SWidth * 0.275f, SHeight * 0.425f), PointF(SWidth * 0.1f, SHeight * 0.395f)),
         arrayListOf(defaultCurveTools, CurveTools(25, 10), CurveTools(-125), CurveTools(-125), CurveTools(125), CurveTools(125))
     )
     private val HEdo_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(835f, 715f), PointF(690f, 835f), defaultMiddlePoint, defaultAdditional, CurveTools(20), 25),
-        SkeletonShape(PointF(655f, 850f), PointF(575f, 850f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 10)
+        SkeletonShape(PointF(SWidth * 0.785f, SHeight * 0.403f), PointF(SWidth * 0.640f, SHeight * 0.484f), defaultMiddlePoint, defaultAdditional, CurveTools(20), 25),
+        SkeletonShape(PointF(SWidth * 0.605f, SHeight * 0.485f), PointF(SWidth * 0.525f, SHeight * 0.485f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 10)
     )
 
-    val HEdo_Skeleton_Sm = SkeletonShape(PointF(750f, 650f), PointF(675f, 850f), HEdo_Middle_Sm, HEdo_Addi_Sm, defaultCurveTools, 100)
-    val HEdo_Skeleton_Cap = SkeletonShape(PointF(425f, 850f), PointF(325f, 625f), HEdo_Middle_Cap, defaultAdditional, defaultCurveTools, 100)
+    val HEdo_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.7f, SHeight * 0.365f), PointF(SWidth * 0.625f, SHeight * 0.485f), HEdo_Middle_Sm, HEdo_Addi_Sm, defaultCurveTools, 100)
+    val HEdo_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.375f, SHeight * 0.485f), PointF(SWidth * 0.275f, SHeight * 0.365f), HEdo_Middle_Cap, defaultAdditional, defaultCurveTools, 100)
 
     // _________________________________________________________________________________________
-    // 32 . YE : derived from Noon
+    // 32 . YE : derived from BE
 
     private val Ye_Addi_Sm = arrayListOf(
-        SkeletonShape(PointF(800f, 900f), PointF(785f, 900f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
-        SkeletonShape(PointF(850f, 900f), PointF(865f, 900f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
+        SkeletonShape(PointF(SWidth * 0.81f, SHeight * 0.575f), PointF(SWidth * 0.82f, SHeight * 0.575f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2),
+        SkeletonShape(PointF(SWidth * 0.72f, SHeight * 0.575f), PointF(SWidth * 0.73f, SHeight * 0.575f), defaultMiddlePoint, defaultAdditional, defaultCurveTools, 2)
     )
     private val Ye_Middle_Cap = MiddlePointTools(
-        arrayListOf(PointF(400f, 800f), PointF(525f, 900f), PointF(400f, 1100f), PointF(200f, 750f), PointF(400f, 1100f), PointF(525f, 900f), PointF(400f, 1100f)),
+        arrayListOf(
+            PointF(SWidth * 0.35f, SHeight * 0.455f),
+            PointF(SWidth * 0.475f, SHeight * 0.515f),
+            PointF(SWidth * 0.35f, SHeight * 0.635f),
+            PointF(SWidth * 0.15f, SHeight * 0.425f),
+            PointF(SWidth * 0.35f, SHeight * 0.635f),
+            PointF(SWidth * 0.475f, SHeight * 0.515f),
+            PointF(SWidth * 0.35f, SHeight * 0.635f)
+        ),
         arrayListOf(CurveTools(-75), CurveTools(-50, 25), CurveTools(100, 40), CurveTools(400), CurveTools(-400), CurveTools(-100, 60), CurveTools(100, 40), CurveTools(400))
     )
 
-    val YE_Skeleton_Sm = SkeletonShape(PointF(900f, 650f), PointF(750f, 750f), Noon_Middle_Sm, Ye_Addi_Sm, defaultCurveTools, 50)
-    val YE_Skeleton_Cap = SkeletonShape(PointF(550f, 700f), PointF(200f, 750f), Ye_Middle_Cap, defaultAdditional, defaultCurveTools, 175)
+    val YE_Skeleton_Sm = SkeletonShape(PointF(SWidth * 0.85f, SHeight * 0.4f), PointF(SWidth * 0.7f, SHeight * 0.45f), BE_Middle_Sm, Ye_Addi_Sm, defaultCurveTools, 30)
+    val YE_Skeleton_Cap = SkeletonShape(PointF(SWidth * 0.5f, SHeight * 0.395f), PointF(SWidth * 0.15f, SHeight * 0.425f), Ye_Middle_Cap, defaultAdditional, defaultCurveTools, 175)
 
     // _________________________________________________________________________________________
-
-
 }
