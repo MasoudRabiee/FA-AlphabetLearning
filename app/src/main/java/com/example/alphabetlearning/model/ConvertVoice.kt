@@ -14,7 +14,7 @@ class ConvertVoice(alphabetLetter: Char) {
             'ا' -> R.raw.valef
             'ب' -> R.raw.vbe
             'پ' -> R.raw.vpe
-            'ت' -> R.raw.vpe
+            'ت' -> R.raw.vte
             'ث' -> R.raw.vse
             'ج' -> R.raw.vjim
             'چ' -> R.raw.vche
