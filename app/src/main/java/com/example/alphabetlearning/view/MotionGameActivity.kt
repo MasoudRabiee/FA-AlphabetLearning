@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Path
+import android.media.MediaPlayer
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ import androidx.core.graphics.BlendModeCompat
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.data.DataPersianLetter
 import com.example.alphabetlearning.databinding.ActivityMotionGameBinding
+import com.example.alphabetlearning.model.ConvertVoice
 import com.example.alphabetlearning.model.LetterTranslator
 import com.example.alphabetlearning.model.MotionJob
 import kotlinx.coroutines.*
@@ -109,6 +111,7 @@ class MotionGameActivity : AppCompatActivity() {
                         BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.argb(255, 255, 242, 0), BlendModeCompat.SRC_IN)
                     prgBar.progress == 100 -> {
                         alertShow.show()
+                        MediaPlayer.create(this@MotionGameActivity , R.raw.vafarin).start()
                         cancel()
                     }
                     else -> prgBar.progressDrawable.colorFilter =
@@ -129,6 +132,7 @@ class MotionGameActivity : AppCompatActivity() {
     private fun checkCorrectPick(button: ImageButton, job: MotionJob) {
         if (key == button.contentDescription) {
             job.job.cancel()
+            playSound(nameLetter[0])
             animatePath(button, xSize, ySize)
             binding.pBarResult.progress += 12
             reviveButton(this, button)
@@ -140,7 +144,7 @@ class MotionGameActivity : AppCompatActivity() {
     private fun createNewButton(cons: ConstraintLayout) {
         val button = ImageButton(this)
         button.layoutParams = ConstraintLayout.LayoutParams(
-            200 , 200
+            binding.btnCorrect.width , binding.btnCorrect.height
         )
         button.scaleType = ImageView.ScaleType.FIT_XY
         button.setPadding(5,5,5,5)
@@ -214,6 +218,13 @@ class MotionGameActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+    }
+
+    private fun playSound(alphabetLetter: Char) {
+        val letterSound = ConvertVoice(alphabetLetter).voiceId
+        MediaPlayer.create(this , letterSound).apply {
+            start()
+        }
     }
 
     private fun animatePath(button: ImageButton, width: Float, height: Float) {
