@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Path
+import android.media.MediaPlayer
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,7 @@ import androidx.core.graphics.BlendModeCompat
 import com.example.alphabetlearning.R
 import com.example.alphabetlearning.data.DataPersianLetter
 import com.example.alphabetlearning.databinding.ActivityGameUpBinding
+import com.example.alphabetlearning.model.ConvertVoice
 import com.example.alphabetlearning.model.LetterTranslator
 import kotlinx.coroutines.*
 
@@ -62,6 +64,7 @@ class GameUpActivity : AppCompatActivity() {
                     binding.pBarUpResult.progress += 10
                 }
                 else {
+                    playSound('N')
                     Toast.makeText(this , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
                 }
             }
@@ -72,6 +75,7 @@ class GameUpActivity : AppCompatActivity() {
                 binding.pBarUpResult.progress += 10
             }
             else {
+                playSound('N')
                 Toast.makeText(this , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
             }
         }
@@ -81,6 +85,7 @@ class GameUpActivity : AppCompatActivity() {
                 binding.pBarUpResult.progress += 10
             }
             else {
+                playSound('N')
                 Toast.makeText(this , "اشتباه کردی ! دوباره تلاش کن" , Toast.LENGTH_SHORT).show()
             }
         }
@@ -139,6 +144,7 @@ class GameUpActivity : AppCompatActivity() {
                         BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.argb(255, 255, 242, 0), BlendModeCompat.SRC_IN)
                     prgBar.progress == 100 -> {
                         alertShow.show()
+                        playSound('Y')
                         cancel()
                     }
                     else -> prgBar.progressDrawable.colorFilter =
@@ -152,10 +158,22 @@ class GameUpActivity : AppCompatActivity() {
 
     private fun startGameUp(context: Context, it: View, rockImage: ImageView, desChar: Char, array: ArrayList<View>) {
         flag = true
+        playSound(nameLetter[0])
         animatePath(rockImage, it.x, it.y - (it.height * 1.1f))
         fadeOtherView(array, it)
         backAnimate(it, rockImage, _width, _height)
         reviveViews(context, desChar, array, it)
+    }
+
+    private fun playSound(alphabetLetter: Char) {
+        when(alphabetLetter){
+            'N' -> MediaPlayer.create(this , R.raw.vretry).start()
+            'Y' -> MediaPlayer.create(this , R.raw.vafarin).start()
+            else -> {
+                val letterSound = ConvertVoice(alphabetLetter).voiceId
+                MediaPlayer.create(this , letterSound).start()
+            }
+        }
     }
 
     private fun reviveViews(context: Context, charLetter: Char, viewArray: ArrayList<View>, noReviveView: View) {
