@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.ClipDescription
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.media.MediaPlayer
 import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -69,8 +70,10 @@ class BlankRecyclerAdapter(private val _context: Context, private val _listData:
                             if (endGame) {
                                 createAlert(context)
                                 alertShow.show()
+                                MediaPlayer.create(context , R.raw.vafarin).start()
                             }
                         } else {
+                            MediaPlayer.create(context , R.raw.vretry).start()
                             Toast.makeText(context, "اشتباه کردی ! دوباره تلاش کن", Toast.LENGTH_SHORT).show()
                         }
                         true
