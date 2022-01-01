@@ -4,16 +4,14 @@ import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.*
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import com.example.alphabetlearning.R
-import com.example.alphabetlearning.model.AlphabetLetter
-import com.example.alphabetlearning.model.CurveTools
-import com.example.alphabetlearning.model.SkeletonShape
-import com.example.alphabetlearning.model.TouchFloatPoint
+import com.example.alphabetlearning.model.*
 import kotlin.math.*
 
 class DrawView : View {
@@ -25,17 +23,12 @@ class DrawView : View {
     private lateinit var canvasBitmap: Bitmap
     private lateinit var drawCanvas: Canvas
 
-    //    var p: Path? = null
-//    var r: Region? = null
-//    private lateinit var pointPath: Array<TouchFloatPoint?>
     private var pFlag = true
     private var holdFlag = false
 
-    // roz 4 :
     private lateinit var paths: Array<Path>
     private lateinit var pathsPoints: List<Array<TouchFloatPoint?>>
 
-    // roz 6:
     private lateinit var thresholdList: Array<Int>
 
     //data
@@ -48,7 +41,6 @@ class DrawView : View {
     private var _context: Context
     private var clearCanvasFlag = false
     private lateinit var toast: Toast
-
 
     constructor(context: Context) : super(context) {
         _context = context
@@ -87,12 +79,12 @@ class DrawView : View {
         // initialize variables :
         paint = Paint()
         paint.color = Color.BLACK
-        paint.strokeWidth = 20f
+        paint.strokeWidth = 25f
         paint.style = Paint.Style.STROKE
         paint.strokeJoin = Paint.Join.ROUND
         paint.strokeCap = Paint.Cap.ROUND
 
-        // bra keshidan :
+        // paint draw :
         drawPaint = Paint()
         drawPaint.color = Color.RED
         drawPaint.isAntiAlias = true
@@ -105,7 +97,6 @@ class DrawView : View {
 
         drawPath = Path()
 
-        //roz 4:
         val pathCount = dataDraw!!.totalPath()
         paths = Array<Path>(pathCount) {
             Path()
@@ -131,6 +122,9 @@ class DrawView : View {
         alertShow = builder.create()
 
         toast = Toast.makeText(_context , "دوباره تلاش کن" , Toast.LENGTH_SHORT)
+
+        val letterSound = ConvertVoice(dataDraw!!.letter[0]).voiceId
+        MediaPlayer.create(_context , letterSound).start()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -145,42 +139,17 @@ class DrawView : View {
             canvas.drawColor(Color.WHITE)
             clearCanvasFlag = false
         }
-//        p = Path()
-        // bra ye khat azmayeshi :
-//        p!!.moveTo(50f, 50f)
-//        p!!.lineTo(200f, 200f)
-//        p!!.lineTo(200f, 500f)
-//        p!!.lineTo(800f,500f)
-//        p!!.lineTo(80f, 100f)
-        // bra dynamic :
-//        createPath(p!!, DataSkeleton.ALEF_Skeleton_Sm)
-        // bra ye alphabet :
         createPaths(paths, dataDraw!!)
 //        canvas.drawPath(p!!, paint)
 //        p!!.close()
         drawPaths(canvas, paint, paths)
-//        closePaths(paths)
         if (pFlag) {
-//            pointPath = getPoints(p!!)
-//            pFlag = false
-            // bra roz 4 :
             setThresholds(thresholdList, dataDraw!!)
             pathsPoints = getPointsOfPaths(paths, thresholdList)
             pFlag = false
-
         }
         canvas.drawBitmap(canvasBitmap, 0f, 0f, canvasPaint)
         canvas.drawPath(drawPath, drawPaint)
-
-//        val rectF = RectF()
-//        p!!.computeBounds(rectF, true)
-//        r = Region()
-//        r!!.setPath(
-//            p, Region(
-//                rectF.left.toInt(), rectF.top.toInt(), rectF.right.toInt(),
-//                rectF.bottom.toInt()
-//            )
-//        )
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -190,7 +159,7 @@ class DrawView : View {
         Log.d(ContentValues.TAG, "point: $point")
         if (isAllPointsTouched(pathsPoints)) {
             alertShow.show()
-            Log.d(ContentValues.TAG, "Mission is complete ez pz")
+            MediaPlayer.create(_context , R.raw.vafarin).start()
         } else {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -212,6 +181,8 @@ class DrawView : View {
                     } else {
                         drawPath.reset()
                         holdFlag = false
+                        // bug : :(
+//                        MediaPlayer.create(_context , R.raw.vretry).start()
                         toast.show()
                         clearDraw()
                     }
@@ -320,8 +291,6 @@ class DrawView : View {
         return result
     }
 
-
-    // roz 3:
     private fun createPath(path: Path, skeletonKind: SkeletonShape) {
         path.reset()
         path.moveTo(skeletonKind.startPointF.x, skeletonKind.startPointF.y)
@@ -351,7 +320,6 @@ class DrawView : View {
 //    path.lineTo(skeletonKind.endPointF.x, skeletonKind.endPointF.y)
     }
 
-    //roz 4:
     private fun createPaths(pathList: Array<Path>, alphaLtr: AlphabetLetter) {
         createPath(pathList[0], alphaLtr.smallShape)
         createPath(pathList[1], alphaLtr.capitalShape)
@@ -370,13 +338,6 @@ class DrawView : View {
             }
         }
     }
-
-//fun closePaths(pathList: Array<Path>){
-//    pathList.forEach {
-//        it.close()
-//
-//    }
-//}
 
     private fun drawPaths(canvas: Canvas, paint: Paint, pathList: Array<Path>) {
         pathList.forEach {
