@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
-import com.example.alphabetlearning.data.DataSkeleton
 import com.example.alphabetlearning.databinding.ActivityMainBinding
 import com.example.alphabetlearning.model.ScreenTool
 
